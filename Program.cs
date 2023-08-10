@@ -54,6 +54,10 @@ builder.Services.AddDbContextPool<DbContextPedidoAdocao>(options =>
     options.UseMySql(mySqlConnection,
     ServerVersion.AutoDetect(mySqlConnection)));
 
+builder.Services.AddDbContextPool<DbContextAdocao>(options =>
+    options.UseMySql(mySqlConnection,
+    ServerVersion.AutoDetect(mySqlConnection)));
+
 /*builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
