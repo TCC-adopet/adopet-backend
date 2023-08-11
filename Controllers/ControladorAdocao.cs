@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AdopetMeApi.Models;
+using AdopetMeApi.function;
 
 namespace AdopetMeApi.Controllers
 {
@@ -61,14 +62,14 @@ namespace AdopetMeApi.Controllers
                 return NotFound();
             }
 
-            if (dto.petAdotado != null)
+            if (validation.isValid(dto.petAdotado))
             {
                 adocaoApi.petAdotado = dto.petAdotado;
             }
-            if(dto.dataAdocao != null){
+            if(validation.isValidDate(dto.dataAdocao)){
                 adocaoApi.dataAdocao = dto.dataAdocao;
             }
-            if(dto.dataRecusa != null){
+            if(validation.isValidDate(dto.dataRecusa)){
                 adocaoApi.dataRecusa = dto.dataRecusa;
             }
 
@@ -82,21 +83,13 @@ namespace AdopetMeApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAdocaoApi([FromForm] adocaoUploadApi dto)
         {
-        if (dto.idPedido == null)
+        if (!validation.isValid(dto.idPedido))
         {
-            return BadRequest("Por favor, insira um nome ao pet.");
+            return BadRequest("pedido não encontrado!");
         }
 
-        
-        var novaAdocao = new adocaoApi
-        {
-            idPedido = dto.idPedido,
-            petAdotado = dto.petAdotado,
-            dataAdocao = dto.dataAdocao,
-            dataRecusa = dto.dataRecusa,
-            idAnimal = dto.idAnimal
-        };
-
+        var novaAdocao = new adocaoApi();
+        novaAdocao = validation.SalvarNoBanco(novaAdocao,dto);
         _context.Adocao.Add(novaAdocao);
         await _context.SaveChangesAsync();
 

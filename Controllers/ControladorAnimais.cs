@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AdopetMeApi.Models;
+using AdopetMeApi.function;
 
 namespace AdopetMeApi.Controllers
 {
@@ -110,7 +111,7 @@ namespace AdopetMeApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAnimalApi([FromForm] animalUploadApi dto)//pega os dados do formulario, que são enviados para a classe PessoaApiUploadDto criado somente para converter a imagem em um blob para a inserção no banco de dados
 {
-    if (dto.nomeAnimal == null)
+    if (!validation.isValid(dto.nomeAnimal))
     {
         return BadRequest("Por favor, insira um nome ao pet.");
     }
@@ -127,25 +128,9 @@ namespace AdopetMeApi.Controllers
     }
 
     
-    var novoAnimal = new animalApi //criando uma nova pessoa com base na classe pessoaApi dentro de Models
-    {
-        //passando as informações da classe PessoaApiUploadDto que esta com o apelido de dto para o item novaPessoa que se baseia na classe pessoaApi
-        nomeAnimal = dto.nomeAnimal,
-        idONG = dto.idONG,
-        dataNascimento = dto.dataNascimento,
-        tipoRaca = dto.tipoRaca,
-        racaCachorro = dto.racaCachorro,
-        racaGato = dto.racaGato,
-        porte = dto.porte,
-        sexo = dto.sexo,
-        vacinaGato = dto.vacinaGato,
-        vacinaCachorro = dto.vacinaCachorro,
-        animalCastrado = dto.animalCastrado,
-        animalAdotado = dto.animalAdotado,
-        descricaoAnimal = dto.descricaoAnimal,
-        dataUltimaVacina = dto.dataUltimaVacina
-    };
-    if(dto.imagem != null)
+    var novoAnimal = new animalApi(); //criando uma nova pessoa com base na classe pessoaApi dentro de Models
+    novoAnimal = validation.SalvarNoBanco(novoAnimal,dto);
+    if(!validation.isValidImage(dto.imagem))
     {
         using (var memoryStream = new MemoryStream())
         {

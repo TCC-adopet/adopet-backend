@@ -6,7 +6,7 @@ namespace AdopetMeApi.Models
     public class animalApi{
     [Key]public int idAnimal { get; set; }
     public DateTime? dataNascimento { get; set; }
-    public int? idONG { get; set; }
+    public string? idONG { get; set; }
     public string? tipoRaca { get; set; }
     public string? racaCachorro { get; set; }
     public string? racaGato { get; set; }
@@ -23,7 +23,7 @@ namespace AdopetMeApi.Models
     }
     public class animalUploadApi{
     public DateTime? dataNascimento { get; set; }
-    public int? idONG { get; set; }
+    public string? idONG { get; set; }
     public string? tipoRaca { get; set; }
     public string? racaCachorro { get; set; }
     public string? racaGato { get; set; }
