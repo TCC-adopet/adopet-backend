@@ -52,30 +52,27 @@ namespace AdopetMeApi.Controllers
         // PUT: api/ControladorAdocao/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutadocaoApi(string id, adocaoApi adocaoApi)
+        public async Task<IActionResult> UpdateAdocaoApi(int id, [FromForm] adocaoUpdateApi dto)
         {
-            if (id != adocaoApi.idAdocao)
+            var adocaoApi = await _context.Adocao.FindAsync(id);
+
+            if (adocaoApi == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(adocaoApi).State = EntityState.Modified;
+            if (dto.petAdotado != null)
+            {
+                adocaoApi.petAdotado = dto.petAdotado;
+            }
+            if(dto.dataAdocao != null){
+                adocaoApi.dataAdocao = dto.dataAdocao;
+            }
+            if(dto.dataRecusa != null){
+                adocaoApi.dataRecusa = dto.dataRecusa;
+            }
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!adocaoApiExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
@@ -83,30 +80,27 @@ namespace AdopetMeApi.Controllers
         // POST: api/ControladorAdocao
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<adocaoApi>> PostadocaoApi(adocaoApi adocaoApi)
+        public async Task<IActionResult> PostAdocaoApi([FromForm] adocaoUploadApi dto)
         {
-          if (_context.Adocao == null)
-          {
-              return Problem("Entity set 'DbContextAdocao.Adocao'  is null.");
-          }
-            _context.Adocao.Add(adocaoApi);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (adocaoApiExists(adocaoApi.idAdocao))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        if (dto.idPedido == null)
+        {
+            return BadRequest("Por favor, insira um nome ao pet.");
+        }
 
-            return CreatedAtAction("GetadocaoApi", new { id = adocaoApi.idAdocao }, adocaoApi);
+        
+        var novaAdocao = new adocaoApi
+        {
+            idPedido = dto.idPedido,
+            petAdotado = dto.petAdotado,
+            dataAdocao = dto.dataAdocao,
+            dataRecusa = dto.dataRecusa,
+            idAnimal = dto.idAnimal
+        };
+
+        _context.Adocao.Add(novaAdocao);
+        await _context.SaveChangesAsync();
+
+        return Ok("dados salvo com sucesso.");
         }
 
         // DELETE: api/ControladorAdocao/5

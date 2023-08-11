@@ -18,7 +18,7 @@ namespace AdopetMeApi.Models
     public string? apelido { get; set; }
     public string? numeroTelefone { get; set; }
     public string? senha { get; set; }
-    public DateTime dataNascimento { get; set; }
+    public DateTime? dataNascimento { get; set; }
     public byte[]? imagem { get; set; }
 }
 public class PessoaApiUploadDto{
@@ -33,7 +33,7 @@ public class PessoaApiUploadDto{
     public string? apelido { get; set; }
     public string? numeroTelefone { get; set; }
     public string? senha { get; set; }
-    public DateTime dataNascimento { get; set; }
+    public DateTime? dataNascimento { get; set; }
     public IFormFile? arquivo { get; set; }
 }
 public class PessoaApiUpdateDto{
@@ -47,7 +47,7 @@ public class PessoaApiUpdateDto{
     public string? apelido { get; set; }
     public string? numeroTelefone { get; set; }
     public string? senha { get; set; }
-    public DateTime dataNascimento { get; set; }
+    public DateTime? dataNascimento { get; set; }
     public IFormFile? arquivo { get; set; }
 }
 }

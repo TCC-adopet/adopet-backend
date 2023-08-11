@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Aluno\\Desktop\\AdopetMeApi\\AdopetMeApi.csproj": {}
+    "C:\\Users\\Aluno\\Desktop\\adopet-backend\\AdopetMeApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Aluno\\Desktop\\AdopetMeApi\\AdopetMeApi.csproj": {
+    "C:\\Users\\Aluno\\Desktop\\adopet-backend\\AdopetMeApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aluno\\Desktop\\AdopetMeApi\\AdopetMeApi.csproj",
+        "projectUniqueName": "C:\\Users\\Aluno\\Desktop\\adopet-backend\\AdopetMeApi.csproj",
         "projectName": "AdopetMeApi",
-        "projectPath": "C:\\Users\\Aluno\\Desktop\\AdopetMeApi\\AdopetMeApi.csproj",
+        "projectPath": "C:\\Users\\Aluno\\Desktop\\adopet-backend\\AdopetMeApi.csproj",
         "packagesPath": "C:\\Users\\Aluno\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aluno\\Desktop\\AdopetMeApi\\obj\\",
+        "outputPath": "C:\\Users\\Aluno\\Desktop\\adopet-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Aluno\\AppData\\Roaming\\NuGet\\NuGet.Config",
