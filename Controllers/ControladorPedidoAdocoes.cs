@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AdopetMeApi.Models;
+using AdopetMeApi.function;
 
 namespace AdopetMeApi.Controllers
 {
@@ -53,18 +54,14 @@ namespace AdopetMeApi.Controllers
         [HttpPost]
          public async Task<IActionResult> pedidoAdocaoUploadApi([FromForm] pedidoAdocaoUploadApi dto)
         {
-        if (dto.idPessoa == null)
+        if (!Validation.IsValidClass(dto.idPessoa))
         {
             return BadRequest("Nenhuma informação enviada.");
         }
 
         
-        var novoPedido = new pedidoAdocaoApi 
-        {
-            idPessoa = dto.idPessoa,
-            dataPedido = dto.dataPedido,
-            idONG = dto.idONG
-        };
+        var novoPedido = new pedidoAdocaoApi();
+        novoPedido = Validation.SalvarNoBanco(novoPedido,dto);
 
         _context.PedidoAdocao.Add(novoPedido);
         await _context.SaveChangesAsync();
@@ -90,11 +87,6 @@ namespace AdopetMeApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool pedidoAdocaoApiExists(string id)
-        {
-            return (_context.PedidoAdocao?.Any(e => e.idPedido == id)).GetValueOrDefault();
         }
     }
 }

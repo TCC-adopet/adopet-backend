@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AdopetMeApi.Models;
+using AdopetMeApi.function;
 
 namespace AdopetMeApi.Controllers
 {
@@ -56,42 +57,42 @@ namespace AdopetMeApi.Controllers
         {
             var ongApi = await _context.Ong.FindAsync(id);//pegando a pessoa que tem o id informado igual no banco de dados 
 
-            if (ongApi == null)
+            if (!Validation.IsValidClass<ongApi>(ongApi))
             {
                 return NotFound();
             }
 
             //caso haja alteração no formulario de atualizar, sobreescreve a informação da pessoa no banco de dados
-            if (dto.nomeEstabelecimento != null)
+            if (Validation.IsValid(dto.nomeEstabelecimento))
             {
                 ongApi.nomeEstabelecimento = dto.nomeEstabelecimento;
             }
-            if(dto.nomeDiretor != null){
+            if(Validation.IsValid(dto.nomeDiretor)){
                 ongApi.nomeDiretor = dto.nomeDiretor;
             }
-            if(dto.idCidade != null){
+            if(Validation.IsValid(dto.idCidade)){
                 ongApi.idCidade = dto.idCidade;
             }
-            if(dto.rua != null){
+            if(Validation.IsValid(dto.rua)){
                 ongApi.rua = dto.rua;
             }
-            if(dto.numeroEstabelecimento != null){
+            if(Validation.IsValid(dto.numeroEstabelecimento)){
                 ongApi.numeroEstabelecimento = dto.numeroEstabelecimento;
             }
-            if(dto.codCEP != null){
+            if(Validation.IsValid(dto.codCEP)){
                 ongApi.codCEP = dto.codCEP;
             }
-            if(dto.cpfDiretor != null){
+            if(Validation.IsValid(dto.cpfDiretor)){
                 ongApi.cpfDiretor = dto.cpfDiretor;
             }
-            if(dto.numeroTelefone != null){
+            if(Validation.IsValid(dto.numeroTelefone)){
                 ongApi.numeroTelefone = dto.numeroTelefone;
             }
-            if(dto.senha != null){
+            if(Validation.IsValid(dto.senha)){
                 ongApi.senha = dto.senha;
             }
 
-            if (dto.arquivo != null)
+            if (Validation.isValidImage(dto.arquivo))
             {
                 using (var memoryStream = new MemoryStream())
                 {
@@ -110,27 +111,15 @@ namespace AdopetMeApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostOngApi([FromForm] ongApiUploadDto dto)//pega os dados do formulario, que são enviados para a classe PessoaApiUploadDto criado somente para converter a imagem em um blob para a inserção no banco de dados
 {
-    if (dto.nomeEstabelecimento == null)
+    if (Validation.IsValid(dto.nomeEstabelecimento))
     {
         return BadRequest("Nenhuma informação enviada.");
     }
 
     
-    var novaOng = new ongApi //criando uma nova pessoa com base na classe pessoaApi dentro de Models
-    {
-        //passando as informações da classe PessoaApiUploadDto que esta com o apelido de dto para o item novaPessoa que se baseia na classe pessoaApi
-        nomeEstabelecimento = dto.nomeEstabelecimento,
-        nomeDiretor = dto.nomeDiretor,
-        codCnpj = dto.codCnpj,
-        cpfDiretor = dto.cpfDiretor,
-        idCidade = dto.idCidade,
-        rua = dto.rua,
-        numeroEstabelecimento = dto.numeroEstabelecimento,
-        codCEP = dto.codCEP,
-        numeroTelefone = dto.numeroTelefone,
-        senha = dto.senha
-    };
-    if(dto.arquivo != null)
+    var novaOng = new ongApi();
+    novaOng = Validation.SalvarNoBanco(novaOng,dto);
+    if(Validation.isValidImage(dto.arquivo))
     {
         using (var memoryStream = new MemoryStream())
         {

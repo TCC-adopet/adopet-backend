@@ -63,7 +63,7 @@ namespace AdopetMeApi.Controllers
             }
 
             //caso haja alteração no formulario de atualizar, sobreescreve a informação da pessoa no banco de dados
-            if (dto.dataNascimento != null)
+            if (Validation.isValidDate(dto.dataNascimento))
             {
                 animalApi.dataNascimento = dto.dataNascimento;
             }
@@ -111,7 +111,7 @@ namespace AdopetMeApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAnimalApi([FromForm] animalUploadApi dto)//pega os dados do formulario, que são enviados para a classe PessoaApiUploadDto criado somente para converter a imagem em um blob para a inserção no banco de dados
 {
-    if (!validation.isValid(dto.nomeAnimal))
+    if (!Validation.IsValid(dto.nomeAnimal))
     {
         return BadRequest("Por favor, insira um nome ao pet.");
     }
@@ -129,8 +129,8 @@ namespace AdopetMeApi.Controllers
 
     
     var novoAnimal = new animalApi(); //criando uma nova pessoa com base na classe pessoaApi dentro de Models
-    novoAnimal = validation.SalvarNoBanco(novoAnimal,dto);
-    if(!validation.isValidImage(dto.imagem))
+    novoAnimal = Validation.SalvarNoBanco(novoAnimal,dto);
+    if(!Validation.isValidImage(dto.imagem))
     {
         using (var memoryStream = new MemoryStream())
         {

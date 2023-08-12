@@ -1,6 +1,6 @@
 namespace AdopetMeApi.function {
-    public static class validation{
-        public static bool isValid(string propriedade)
+    public static class Validation{
+        public static bool IsValid(string propriedade)
         {
             if(propriedade!=null){
                 return true;
@@ -18,6 +18,14 @@ namespace AdopetMeApi.function {
             }
         }
         public static bool isValidImage(IFormFile? propriedade){
+            if(propriedade!=null){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        public static bool IsValidClass<T>(T propriedade){
             if(propriedade!=null){
                 return true;
             }

@@ -12,7 +12,7 @@ namespace AdopetMeApi.Models
         public string? cpfDiretor {get; set; }
         public string? idCidade {get; set; }
         public string? rua { get; set; }
-        public int? numeroEstabelecimento { get; set; }
+        public string? numeroEstabelecimento { get; set; }
         public string? codCEP { get; set; }
         public string? numeroTelefone { get; set; }
         public string? senha { get; set; }
@@ -26,7 +26,7 @@ namespace AdopetMeApi.Models
         public string? cpfDiretor {get; set; }
         public string? idCidade {get; set; }
         public string? rua { get; set; }
-        public int? numeroEstabelecimento { get; set; }
+        public string? numeroEstabelecimento { get; set; }
         public string? codCEP { get; set; }
         public string? numeroTelefone { get; set; }
         public string? senha { get; set; }
@@ -39,7 +39,7 @@ namespace AdopetMeApi.Models
         public string? cpfDiretor {get; set; }
         public string? idCidade {get; set; }
         public string? rua { get; set; }
-        public int? numeroEstabelecimento { get; set; }
+        public string? numeroEstabelecimento { get; set; }
         public string? codCEP { get; set; }
         public string? numeroTelefone { get; set; }
         public string? senha { get; set; }

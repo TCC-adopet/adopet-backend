@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AdopetMeApi.Models;
+using AdopetMeApi.function;
 
 namespace AdopetMeApi.Controllers
 {
@@ -54,50 +55,49 @@ namespace AdopetMeApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePessoaApi(int id, [FromForm] PessoaApiUpdateDto dto)//seleciona o id e as informações do formulario de acordo com a classe pessoaApiUpdateDto e apelida a classe de dto
         {
-            var pessoaApi = await _context.pessoa.FindAsync(id);//pegando a pessoa que tem o id informado igual no banco de dados 
-
+            var pessoaApi = await _context.pessoa.FindAsync(id);
             if (pessoaApi == null)
             {
                 return NotFound();
             }
 
             //caso haja alteração no formulario de atualizar, sobreescreve a informação da pessoa no banco de dados
-            if (dto.nome != null)
+            if (Validation.IsValid(dto.nome))
             {
                 pessoaApi.nome = dto.nome;
             }
-            if(dto.sobreNome != null){
+            if(Validation.IsValid(dto.sobreNome)){
                 pessoaApi.sobreNome = dto.nome;
             }
-            if(dto.idCidade != null){
+            if(Validation.IsValid(dto.idCidade)){
                 pessoaApi.idCidade = dto.idCidade;
             }
-            if(dto.rua != null){
+            if(Validation.IsValid(dto.rua)){
                 pessoaApi.rua = dto.rua;
             }
-            if(dto.numeroCasa != null){
+            if(Validation.IsValid(dto.numeroCasa)){
                 pessoaApi.numeroCasa = dto.numeroCasa;
             }
-            if(dto.codCEP != null){
+            if(Validation.IsValid(dto.codCEP)){
                 pessoaApi.codCEP = dto.codCEP;
             }
-            if(dto.sexo != null){
+            if(Validation.IsValid(dto.sexo)){
                 pessoaApi.sexo = dto.sexo;
             }
-            if(dto.apelido != null){
+            if(Validation.IsValid(dto.apelido)){
                 pessoaApi.apelido = dto.apelido;
             }
-            if(dto.numeroTelefone != null){
+            if(Validation.IsValid(dto.numeroTelefone)){
                 pessoaApi.numeroTelefone = dto.numeroTelefone;
             }
-            if(dto.senha != null){
+            if(Validation.IsValid(dto.senha)){
                 pessoaApi.senha = dto.senha;
             }
-            if(dto.dataNascimento != null){
+            if(Validation.isValidDate(dto.dataNascimento)){
                 pessoaApi.dataNascimento = dto.dataNascimento;
             }
 
-            if (dto.arquivo != null)
+            if (Validation.isValidImage(dto.arquivo))
             {
                 using (var memoryStream = new MemoryStream())
                 {
@@ -115,29 +115,15 @@ namespace AdopetMeApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostPessoaApi([FromForm] PessoaApiUploadDto dto)//pega os dados do formulario, que são enviados para a classe PessoaApiUploadDto criado somente para converter a imagem em um blob para a inserção no banco de dados
 {
-    if (dto.nome == null)
+    if (Validation.IsValid(dto.nome))
     {
         return BadRequest("Nenhuma informação enviada.");
     }
 
     
-    var novaPessoa = new pessoaApi //criando uma nova pessoa com base na classe pessoaApi dentro de Models
-    {
-        //passando as informações da classe PessoaApiUploadDto que esta com o apelido de dto para o item novaPessoa que se baseia na classe pessoaApi
-        nome = dto.nome,
-        sobreNome = dto.sobreNome,
-        codCpf = dto.codCpf,
-        idCidade = dto.idCidade,
-        rua = dto.rua,
-        numeroCasa = dto.numeroCasa,
-        codCEP = dto.codCEP,
-        sexo = dto.sexo,
-        apelido = dto.apelido,
-        numeroTelefone = dto.numeroTelefone,
-        senha = dto.senha,
-        dataNascimento = dto.dataNascimento        
-    };
-    if(dto.arquivo != null)
+    var novaPessoa = new pessoaApi();
+    novaPessoa = Validation.SalvarNoBanco(novaPessoa,dto);
+    if(Validation.isValidImage(dto.arquivo))
     {
         using (var memoryStream = new MemoryStream())
         {

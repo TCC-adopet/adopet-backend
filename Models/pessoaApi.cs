@@ -12,7 +12,7 @@ namespace AdopetMeApi.Models
     public string? codCpf { get; set; }
     public string? idCidade { get; set; }
     public string? rua { get; set; }
-    public int? numeroCasa { get; set; }
+    public string? numeroCasa { get; set; }
     public string? codCEP { get; set; }
     public string? sexo { get; set; }
     public string? apelido { get; set; }
@@ -27,7 +27,7 @@ public class PessoaApiUploadDto{
     public string? codCpf { get; set; }
     public string? idCidade { get; set; }
     public string? rua { get; set; }
-    public int? numeroCasa { get; set; }
+    public string? numeroCasa { get; set; }
     public string? codCEP { get; set; }
     public string? sexo { get; set; }
     public string? apelido { get; set; }
@@ -41,7 +41,7 @@ public class PessoaApiUpdateDto{
     public string? sobreNome { get; set; }
     public string? idCidade { get; set; }
     public string? rua { get; set; }
-    public int? numeroCasa { get; set; }
+    public string? numeroCasa { get; set; }
     public string? codCEP { get; set; }
     public string? sexo { get; set; }
     public string? apelido { get; set; }

@@ -62,14 +62,14 @@ namespace AdopetMeApi.Controllers
                 return NotFound();
             }
 
-            if (validation.isValid(dto.petAdotado))
+            if (Validation.IsValid(dto.petAdotado))
             {
                 adocaoApi.petAdotado = dto.petAdotado;
             }
-            if(validation.isValidDate(dto.dataAdocao)){
+            if(Validation.isValidDate(dto.dataAdocao)){
                 adocaoApi.dataAdocao = dto.dataAdocao;
             }
-            if(validation.isValidDate(dto.dataRecusa)){
+            if(Validation.isValidDate(dto.dataRecusa)){
                 adocaoApi.dataRecusa = dto.dataRecusa;
             }
 
@@ -83,13 +83,13 @@ namespace AdopetMeApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAdocaoApi([FromForm] adocaoUploadApi dto)
         {
-        if (!validation.isValid(dto.idPedido))
+        if (!Validation.IsValid(dto.idPedido))
         {
             return BadRequest("pedido não encontrado!");
         }
 
         var novaAdocao = new adocaoApi();
-        novaAdocao = validation.SalvarNoBanco(novaAdocao,dto);
+        novaAdocao = Validation.SalvarNoBanco(novaAdocao,dto);
         _context.Adocao.Add(novaAdocao);
         await _context.SaveChangesAsync();
 
