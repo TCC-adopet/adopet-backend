@@ -14,6 +14,7 @@ namespace AdopetMeApi.Controllers
     [ApiController]
     public class ControladorAdocao : ControllerBase
     {
+        int variavelId;
         private readonly DbContextAdocao _context;
 
         public ControladorAdocao(DbContextAdocao context)
@@ -90,6 +91,7 @@ namespace AdopetMeApi.Controllers
 
         var novaAdocao = new adocaoApi();
         novaAdocao = Validation.SalvarNoBanco(novaAdocao,dto);
+        novaAdocao.idAdocao= Interlocked.Increment(ref variavelId);
         _context.Adocao.Add(novaAdocao);
         await _context.SaveChangesAsync();
 
@@ -114,11 +116,6 @@ namespace AdopetMeApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool adocaoApiExists(string id)
-        {
-            return (_context.Adocao?.Any(e => e.idAdocao == id)).GetValueOrDefault();
         }
     }
 }

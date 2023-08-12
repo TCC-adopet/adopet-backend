@@ -115,7 +115,7 @@ namespace AdopetMeApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostPessoaApi([FromForm] PessoaApiUploadDto dto)//pega os dados do formulario, que são enviados para a classe PessoaApiUploadDto criado somente para converter a imagem em um blob para a inserção no banco de dados
 {
-    if (Validation.IsValid(dto.nome))
+    if (!Validation.IsValid(dto.nome))
     {
         return BadRequest("Nenhuma informação enviada.");
     }
@@ -155,11 +155,6 @@ namespace AdopetMeApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool pessoaApiExists(int id)
-        {
-            return (_context.pessoa?.Any(e => e.idPessoa == id)).GetValueOrDefault();
         }
     }
 }

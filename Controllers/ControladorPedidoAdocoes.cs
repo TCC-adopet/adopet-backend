@@ -14,6 +14,7 @@ namespace AdopetMeApi.Controllers
     [ApiController]
     public class ControladorPedidoAdocoes : ControllerBase
     {
+        int variavelIdPedido;
         private readonly DbContextPedidoAdocao _context;
 
         public ControladorPedidoAdocoes(DbContextPedidoAdocao context)
@@ -54,14 +55,9 @@ namespace AdopetMeApi.Controllers
         [HttpPost]
          public async Task<IActionResult> pedidoAdocaoUploadApi([FromForm] pedidoAdocaoUploadApi dto)
         {
-        if (!Validation.IsValidClass(dto.idPessoa))
-        {
-            return BadRequest("Nenhuma informação enviada.");
-        }
-
         
-        var novoPedido = new pedidoAdocaoApi();
-        novoPedido = Validation.SalvarNoBanco(novoPedido,dto);
+        var novoPedido = Validation.SalvarNoBanco(new pedidoAdocaoApi(),dto);
+        novoPedido.idPedido= Interlocked.Increment(ref variavelIdPedido);
 
         _context.PedidoAdocao.Add(novoPedido);
         await _context.SaveChangesAsync();

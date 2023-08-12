@@ -123,6 +123,9 @@ namespace AdopetMeApi.Controllers
         dto.racaCachorro = null;
         dto.vacinaCachorro = null;
     }
+    else if(dto.tipoRaca==null){
+
+    }
     else{
         return BadRequest("tipo do pet invalido.");
     }
@@ -130,7 +133,7 @@ namespace AdopetMeApi.Controllers
     
     var novoAnimal = new animalApi(); //criando uma nova pessoa com base na classe pessoaApi dentro de Models
     novoAnimal = Validation.SalvarNoBanco(novoAnimal,dto);
-    if(!Validation.isValidImage(dto.imagem))
+    if(Validation.isValidImage(dto.imagem))
     {
         using (var memoryStream = new MemoryStream())
         {

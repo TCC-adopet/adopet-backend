@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace AdopetMeApi.Models
 {
     public class adocaoApi{
-    [Key]public string? idAdocao { get; set; }
+    [Key]public int idAdocao { get; set; }
     public string? idPedido { get; set; }
     public string? petAdotado { get; set; }
     public DateTime? dataAdocao { get; set; }
