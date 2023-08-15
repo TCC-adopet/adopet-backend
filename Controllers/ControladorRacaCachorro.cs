@@ -9,6 +9,7 @@ using AdopetMeApi.Models;
 
 namespace AdopetMeApi.Controllers
 {
+    //endpoint para fazer o CRUD na tabela especificada
     [Route("api/[controller]")]
     [ApiController]
     public class ControladorRacaCachorro : ControllerBase

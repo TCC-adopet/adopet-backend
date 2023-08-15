@@ -10,6 +10,7 @@ using AdopetMeApi.function;
 
 namespace AdopetMeApi.Controllers
 {
+    //endpoint para fazer o CRUD na tabela especificada
     [Route("api/[controller]")]
     [ApiController]
     public class ControladorPedidoAdocoes : ControllerBase

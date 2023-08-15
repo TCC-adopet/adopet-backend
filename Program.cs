@@ -12,8 +12,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 string mySqlConnection =
-    builder.Configuration.GetConnectionString("DefaultConnection");
+    builder.Configuration.GetConnectionString("DefaultConnection");//string de conexão qu epega o DefaultConnection do appsettings.json
 
+//pegando a string de conexão e a usando para mandar informação das tabelas, para as classes do DbContext
 builder.Services.AddDbContextPool<DbContextAdopet>(options =>
     options.UseMySql(mySqlConnection,
     ServerVersion.AutoDetect(mySqlConnection)));
@@ -82,7 +83,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());//permitindo qualquer pessoa a utilizar a api, para não gerar problemas no frontend
 
 app.UseAuthorization();
 

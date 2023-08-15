@@ -12170,24 +12170,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\XD4ngerX\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Aluno\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\GitHub\\adopet-backend\\AdopetMeApi.csproj",
+      "projectUniqueName": "c:\\adopet-backend\\AdopetMeApi.csproj",
       "projectName": "AdopetMeApi",
-      "projectPath": "C:\\GitHub\\adopet-backend\\AdopetMeApi.csproj",
-      "packagesPath": "C:\\Users\\XD4ngerX\\.nuget\\packages\\",
-      "outputPath": "C:\\GitHub\\adopet-backend\\obj\\",
+      "projectPath": "c:\\adopet-backend\\AdopetMeApi.csproj",
+      "packagesPath": "C:\\Users\\Aluno\\.nuget\\packages\\",
+      "outputPath": "c:\\adopet-backend\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\XD4ngerX\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Aluno\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

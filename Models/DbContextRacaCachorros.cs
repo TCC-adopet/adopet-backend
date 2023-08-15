@@ -1,3 +1,5 @@
+//codigo usado para linkar a tabela no banco de dados com a classe especifica
+
 using Microsoft.EntityFrameworkCore;
 using AdopetMeApi.Models;
 
