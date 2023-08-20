@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "c:\\adopet-backend\\AdopetMeApi.csproj": {}
+    "C:\\GitHub\\adopet-backend\\AdopetMeApi.csproj": {}
   },
   "projects": {
-    "c:\\adopet-backend\\AdopetMeApi.csproj": {
+    "C:\\GitHub\\adopet-backend\\AdopetMeApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\adopet-backend\\AdopetMeApi.csproj",
+        "projectUniqueName": "C:\\GitHub\\adopet-backend\\AdopetMeApi.csproj",
         "projectName": "AdopetMeApi",
-        "projectPath": "c:\\adopet-backend\\AdopetMeApi.csproj",
-        "packagesPath": "C:\\Users\\Aluno\\.nuget\\packages\\",
-        "outputPath": "c:\\adopet-backend\\obj\\",
+        "projectPath": "C:\\GitHub\\adopet-backend\\AdopetMeApi.csproj",
+        "packagesPath": "C:\\Users\\XD4ngerX\\.nuget\\packages\\",
+        "outputPath": "C:\\GitHub\\adopet-backend\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Aluno\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\XD4ngerX\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -41,6 +45,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.9, )"
