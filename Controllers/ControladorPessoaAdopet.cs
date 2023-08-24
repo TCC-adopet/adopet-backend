@@ -60,47 +60,12 @@ namespace AdopetMeApi.Controllers
             {
                 return NotFound();
             }
-            var person = new pessoaApi();
-            person = Validation.updateEntityBd(person,dto);
-            pessoaApi = person;
+            object? person = null;
+            var newPessoaApi = new PessoaApiUpdateDto();
+            person = Validation.PegarPropriedades(newPessoaApi,dto);
+            pessoaApi = Validation.updateEntityBd(pessoaApi,person);
 
-            /*caso haja alteração no formulario de atualizar, sobreescreve a informação da pessoa no banco de dados
-            if (Validation.IsValid(dto.nome))
-            {
-                pessoaApi.nome = dto.nome;
-            }
-            if(Validation.IsValid(dto.sobreNome)){
-                pessoaApi.sobreNome = dto.nome;
-            }
-            if(Validation.IsValid(dto.idCidade)){
-                pessoaApi.idCidade = dto.idCidade;
-            }
-            if(Validation.IsValid(dto.rua)){
-                pessoaApi.rua = dto.rua;
-            }
-            if(Validation.IsValid(dto.numeroCasa)){
-                pessoaApi.numeroCasa = dto.numeroCasa;
-            }
-            if(Validation.IsValid(dto.codCEP)){
-                pessoaApi.codCEP = dto.codCEP;
-            }
-            if(Validation.IsValid(dto.sexo)){
-                pessoaApi.sexo = dto.sexo;
-            }
-            if(Validation.IsValid(dto.apelido)){
-                pessoaApi.apelido = dto.apelido;
-            }
-            if(Validation.IsValid(dto.numeroTelefone)){
-                pessoaApi.numeroTelefone = dto.numeroTelefone;
-            }
-            if(Validation.IsValid(dto.senha)){
-                pessoaApi.senha = dto.senha;
-            }
-            if(Validation.isValidDate(dto.dataNascimento)){
-                pessoaApi.dataNascimento = dto.dataNascimento;
-            }*/
-
-            if (Validation.isValidImage(dto.arquivo))
+            if (dto.arquivo!=null)
             {
                 using (var memoryStream = new MemoryStream())
                 {
@@ -117,7 +82,7 @@ namespace AdopetMeApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostPessoaApi([FromForm] PessoaApiUploadDto dto)//pega os dados do formulario, que são enviados para a classe PessoaApiUploadDto criado somente para converter a imagem em um blob para a inserção no banco de dados
 {
-    if (!Validation.IsValid(dto.nome))
+    if (dto.nome==null)
     {
         return BadRequest("Nenhuma informação enviada.");
     }
@@ -125,7 +90,7 @@ namespace AdopetMeApi.Controllers
     
     var novaPessoa = new pessoaApi();
     novaPessoa = Validation.SalvarNoBanco(novaPessoa,dto);
-    if(Validation.isValidImage(dto.arquivo))
+    if(dto.arquivo!=null)
     {
         using (var memoryStream = new MemoryStream())
         {

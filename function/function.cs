@@ -1,51 +1,17 @@
 namespace AdopetMeApi.function {
     public static class Validation{
-               public static bool IsValid(string propriedade)
-        {
-            if(propriedade!=null){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        public static bool isValidDate(DateTime? propriedade){
-            if(propriedade!=null){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        public static bool isValidImage(IFormFile? propriedade){
-            if(propriedade!=null){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        public static bool IsValidClass<T>(T propriedade){
-            if(propriedade!=null){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
        public static T SalvarNoBanco<T>(T entity, object dto)
         {
             var dtoProperties = dto.GetType().GetProperties(); // Obtém as propriedades do objeto dto
             var entityProperties = typeof(T).GetProperties(); // Obtém as propriedades do tipo de objeto entity
 
-            foreach (var dtoProperty in dtoProperties) // Itera pelas propriedades do dto
+            foreach (var dtoProperty in dtoProperties) //cria uma variavel Property, para passar em cada propriedade do object dto
             {
-                var entityProperty = entityProperties.FirstOrDefault(p => p.Name == dtoProperty.Name);
+                var entityProperty = entityProperties.FirstOrDefault(p => p.Name == dtoProperty.Name);// procura no entity uma propriedade com o mesmo nome da propriedade do dto
 
                 if (entityProperty != null && entityProperty.PropertyType == dtoProperty.PropertyType)
                 {
-                    // Se a propriedade correspondente existir no objeto entity e tiver o mesmo tipo que a propriedade do dto,
-                    // o valor da propriedade do dto é copiado para a propriedade do entity
+                    // Se a propriedade correspondente existir no objeto entity e tiver o mesmo tipo que a propriedade do dto, o valor da propriedade do dto é copiado para a propriedade do entity
                     entityProperty.SetValue(entity, dtoProperty.GetValue(dto));
                 }
             }
@@ -56,19 +22,47 @@ namespace AdopetMeApi.function {
         {
             var dto_Properties = dto.GetType().GetProperties();
             var entity_Properties = typeof(T).GetProperties();
+            if(dto!=null){//se o dto não for null contiuará o processo
+                foreach(var dto_Property in dto_Properties)
+                {
+                var entity_Property = entity_Properties.FirstOrDefault(p => p.Name == dto_Property.Name); 
+                if(dto_Property != null && entity_Property != null && entity_Property.PropertyType == dto_Property.PropertyType)//se propriedade do dto e a propriedade do entity não forem null e tiverem o mesmo tipo, salva no banco
+                {
+                    var dto_Value = dto_Property.GetValue(dto);
+                    if(dto_Property.GetType()== typeof(int) && entity_Property.GetType() == typeof(string))//tive que adicionar este if, pois dentro da classe adocao, ouve um problema que o auto increment do banco de dados não estava funcionando, então tive que colocar o auto increment dentro da api, este if é para o caso da classe Adocao
+                    {
+                    entity_Property.SetValue(entity,dto_Value.ToString());
+                    }
+                    else
+                    {
+                    entity_Property.SetValue(entity,dto_Value);
+                    }
+                }
+                }
+            }
+            return entity;//retorna o entity
+        }
+        public static object PegarPropriedades<T>(T entity, object dto)
+        {
+            var ret = Activator.CreateInstance(typeof(T));//criando uma classe de destino para colocar as propriedades que não forem null
+            var dto_Properties = dto.GetType().GetProperties();
+            var entity_Properties = typeof(T).GetProperties();
 
             if(dto!=null){
                 foreach(var dto_Property in dto_Properties)
                 {
                 var entity_Property = entity_Properties.FirstOrDefault(p => p.Name == dto_Property.Name);
-                if(dto_Property != null && entity_Property.PropertyType == dto_Property.PropertyType)
+                if(dto_Property != null &&entity_Property != null && entity_Property.PropertyType == dto_Property.PropertyType)
                 {
-                    entity_Property.SetValue(entity,dto_Property.GetValue(dto));
+                    var dto_Value = dto_Property.GetValue(dto);//cria uma variavel para pegar o valor da propriedade atual do foreach
+                    if(dto_Value != null)//se valor não for null, da um SetValue na variavel ret, que significa retorno/return
+                    {
+                    entity_Property.SetValue(ret,dto_Value);
+                    }
                 }
                 }
             }
-            return entity;
+            return ret;
         }
-
     }
 }

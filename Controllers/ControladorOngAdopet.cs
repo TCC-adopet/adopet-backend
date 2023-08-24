@@ -57,42 +57,18 @@ namespace AdopetMeApi.Controllers
         {
             var ongApi = await _context.Ong.FindAsync(id);//pegando a pessoa que tem o id informado igual no banco de dados 
 
-            if (!Validation.IsValidClass<ongApi>(ongApi))
+            if (ongApi==null)
             {
                 return NotFound();
             }
 
             //caso haja alteração no formulario de atualizar, sobreescreve a informação da pessoa no banco de dados
-            if (Validation.IsValid(dto.nomeEstabelecimento))
-            {
-                ongApi.nomeEstabelecimento = dto.nomeEstabelecimento;
-            }
-            if(Validation.IsValid(dto.nomeDiretor)){
-                ongApi.nomeDiretor = dto.nomeDiretor;
-            }
-            if(Validation.IsValid(dto.idCidade)){
-                ongApi.idCidade = dto.idCidade;
-            }
-            if(Validation.IsValid(dto.rua)){
-                ongApi.rua = dto.rua;
-            }
-            if(Validation.IsValid(dto.numeroEstabelecimento)){
-                ongApi.numeroEstabelecimento = dto.numeroEstabelecimento;
-            }
-            if(Validation.IsValid(dto.codCEP)){
-                ongApi.codCEP = dto.codCEP;
-            }
-            if(Validation.IsValid(dto.cpfDiretor)){
-                ongApi.cpfDiretor = dto.cpfDiretor;
-            }
-            if(Validation.IsValid(dto.numeroTelefone)){
-                ongApi.numeroTelefone = dto.numeroTelefone;
-            }
-            if(Validation.IsValid(dto.senha)){
-                ongApi.senha = dto.senha;
-            }
-
-            if (Validation.isValidImage(dto.arquivo))
+            object? estabelecimento = null;
+            var ongUpdate = new ongApiUpdateDto();
+            estabelecimento = Validation.PegarPropriedades(ongUpdate,dto);
+            ongApi = Validation.updateEntityBd(ongApi,estabelecimento);
+            
+            if (dto.arquivo!=null)
             {
                 using (var memoryStream = new MemoryStream())
                 {
@@ -110,7 +86,7 @@ namespace AdopetMeApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostOngApi([FromForm] ongApiUploadDto dto)//pega os dados do formulario, que são enviados para a classe PessoaApiUploadDto criado somente para converter a imagem em um blob para a inserção no banco de dados
 {
-    if (Validation.IsValid(dto.nomeEstabelecimento))
+    if (dto.nomeEstabelecimento==null)
     {
         return BadRequest("Nenhuma informação enviada.");
     }
@@ -118,7 +94,7 @@ namespace AdopetMeApi.Controllers
     
     var novaOng = new ongApi();
     novaOng = Validation.SalvarNoBanco(novaOng,dto);
-    if(Validation.isValidImage(dto.arquivo))
+    if(dto.arquivo!=null)
     {
         using (var memoryStream = new MemoryStream())
         {
