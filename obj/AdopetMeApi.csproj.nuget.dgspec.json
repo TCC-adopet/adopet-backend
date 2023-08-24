@@ -10,18 +10,16 @@
         "projectUniqueName": "C:\\adopet-backend\\AdopetMeApi.csproj",
         "projectName": "AdopetMeApi",
         "projectPath": "C:\\adopet-backend\\AdopetMeApi.csproj",
-        "packagesPath": "C:\\Users\\Aluno\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\GUSTAVODIASDOSSANTOS\\.nuget\\packages\\",
         "outputPath": "C:\\adopet-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Aluno\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\GUSTAVODIASDOSSANTOS\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },

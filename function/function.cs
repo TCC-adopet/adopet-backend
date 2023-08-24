@@ -28,15 +28,7 @@ namespace AdopetMeApi.function {
                 var entity_Property = entity_Properties.FirstOrDefault(p => p.Name == dto_Property.Name); 
                 if(dto_Property != null && entity_Property != null && entity_Property.PropertyType == dto_Property.PropertyType)//se propriedade do dto e a propriedade do entity não forem null e tiverem o mesmo tipo, salva no banco
                 {
-                    var dto_Value = dto_Property.GetValue(dto);
-                    if(dto_Property.GetType()== typeof(int) && entity_Property.GetType() == typeof(string))//tive que adicionar este if, pois dentro da classe adocao, ouve um problema que o auto increment do banco de dados não estava funcionando, então tive que colocar o auto increment dentro da api, este if é para o caso da classe Adocao
-                    {
-                    entity_Property.SetValue(entity,dto_Value.ToString());
-                    }
-                    else
-                    {
-                    entity_Property.SetValue(entity,dto_Value);
-                    }
+                    entity_Property.SetValue(entity,dto_Property.GetValue(dto));
                 }
                 }
             }
