@@ -60,8 +60,8 @@ namespace AdopetMeApi.function {
             if(dto!=null){
                 foreach(var dto_Property in dto_Properties)
                 {
-                var entity_Property = entity_Properties.FirstOrDefault(p => p.Name == dto_Property);
-                if(dto_Property != null && entity_Property.PropertyType == dtoProperty.PropertyType)
+                var entity_Property = entity_Properties.FirstOrDefault(p => p.Name == dto_Property.Name);
+                if(dto_Property != null && entity_Property.PropertyType == dto_Property.PropertyType)
                 {
                     entity_Property.SetValue(entity,dto_Property.GetValue(dto));
                 }
