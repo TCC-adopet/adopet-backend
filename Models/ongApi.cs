@@ -11,6 +11,7 @@ namespace AdopetMeApi.Models
         public string? nomeEstabelecimento { get; set; }
         public string? nomeDiretor { get; set; }
         public string? codCnpj { get; set; }
+        public string? email { get; set; } 
         public string? cpfDiretor {get; set; }
         public string? idCidade {get; set; }
         public string? rua { get; set; }
@@ -25,6 +26,7 @@ namespace AdopetMeApi.Models
         public string? nomeEstabelecimento { get; set; }
         public string? nomeDiretor { get; set; }
         public string? codCnpj { get; set; }
+        public string? email { get; set; }
         public string? cpfDiretor {get; set; }
         public string? idCidade {get; set; }
         public string? rua { get; set; }

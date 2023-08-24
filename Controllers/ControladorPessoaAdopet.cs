@@ -60,8 +60,11 @@ namespace AdopetMeApi.Controllers
             {
                 return NotFound();
             }
+            var person = new pessoaApi();
+            person = Validation.updateEntityBd(person,dto);
+            pessoaApi = person;
 
-            //caso haja alteração no formulario de atualizar, sobreescreve a informação da pessoa no banco de dados
+            /*caso haja alteração no formulario de atualizar, sobreescreve a informação da pessoa no banco de dados
             if (Validation.IsValid(dto.nome))
             {
                 pessoaApi.nome = dto.nome;
@@ -95,7 +98,7 @@ namespace AdopetMeApi.Controllers
             }
             if(Validation.isValidDate(dto.dataNascimento)){
                 pessoaApi.dataNascimento = dto.dataNascimento;
-            }
+            }*/
 
             if (Validation.isValidImage(dto.arquivo))
             {
