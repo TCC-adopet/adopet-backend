@@ -52,7 +52,6 @@ namespace AdopetMeApi.Controllers
         }
 
         // PUT: api/ControladorPessoaAdopet/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePessoaApi(int id, [FromForm] PessoaApiUpdateDto dto)//seleciona o id e as informações do formulario de acordo com a classe pessoaApiUpdateDto e apelida a classe de dto
         {
@@ -112,7 +111,6 @@ namespace AdopetMeApi.Controllers
             return NoContent();
         }
         // POST: api/ControladorPessoaAdopet
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<IActionResult> PostPessoaApi([FromForm] PessoaApiUploadDto dto)//pega os dados do formulario, que são enviados para a classe PessoaApiUploadDto criado somente para converter a imagem em um blob para a inserção no banco de dados
 {

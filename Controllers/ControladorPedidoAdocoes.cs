@@ -52,7 +52,6 @@ namespace AdopetMeApi.Controllers
             return pedidoAdocaoApi;
         }
         // POST: api/ControladorPedidoAdocoes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
          public async Task<IActionResult> pedidoAdocaoUploadApi([FromForm] pedidoAdocaoUploadApi dto)
         {
