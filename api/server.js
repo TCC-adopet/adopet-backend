@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const ong = require("./src/ong");
 const pessoa = require("./src/pessoa");
+const UF = require("./src/UF");
+const cidades = require("./src/cidades");
 
 const app = express();  // Aqui, estamos chamando a função express() para criar o aplicativo
 
@@ -121,6 +123,50 @@ app.delete('/deletePessoa/:id', async (req, res) => {
     try {
         const result = await pessoa.deletePessoa(id);
         res.json({ result });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+//endpoints para UF
+
+app.get('/getUF', async (req,res) => {
+    const query = await UF.getUF();
+    return res.status(201).json(query);
+});
+
+app.get('/getUFid/:id', async (req, res) => {
+    const idUF = req.params.id;
+
+    try {
+        const query = await UF.getUFid(idUF);
+        if (query) {
+            res.json(query);
+        } else {
+            res.status(404).json({ message: 'UF não encontrado.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+//endpoints para cidades
+
+app.get('/getCidades', async (req,res) => {
+    const query = await cidades.getCidades();
+    return res.status(201).json(query);
+});
+
+app.get('/getCidadesId/:id', async (req, res) => {
+    const idCidade = req.params.id;
+
+    try {
+        const query = await cidades.getCidadesId(idCidade);
+        if (query) {
+            res.json(query);
+        } else {
+            res.status(404).json({ message: 'Cidade não encontrada.' });
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
