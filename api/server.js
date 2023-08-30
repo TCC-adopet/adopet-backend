@@ -11,6 +11,7 @@ const VacinasFelinas = require("./src/vacinasFelinas");
 const VacinasCaninas = require("./src/vacinasCaninas");
 const animal = require("./src/animal");
 const adocao = require("./src/adocao");
+const pedidoAdocao = require("./src/pedidoAdocao");
 
 const app = express();  // Aqui, estamos chamando a função express() para criar o aplicativo
 
@@ -364,6 +365,48 @@ app.delete('/deleteAdocao/:id', async (req, res) => {
 
     try {
         const result = await adocao.deleteAdocao(id);
+        res.json({ result });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+//endpoints pedidos de adoção
+
+app.get('/getPedidoAdocao', async (req,res) => {
+    const query = await pedidoAdocao.getPedidoAdocao();
+    return res.status(201).json(query);
+});
+
+app.get('/getPedidoAdocaoId/:id', async (req, res) => {
+    const idPedido = req.params.id;
+
+    try {
+        const query = await pedidoAdocao.getPedidoAdocao(idPedido);
+        if (query) {
+            res.json(query);
+        } else {
+            res.status(404).json({ message: 'Pedido não encontrado.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.post('/setPedidoAdocao', async (req, res) => {
+    try {
+        const insertId = await pedidoAdocao.setPedidoAdocao(req.body);
+        res.json({ insertId });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.delete('/deletePedidoAdocao/:id', async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const result = await pedidoAdocao.deletePedidoAdocao(id);
         res.json({ result });
     } catch (error) {
         res.status(500).json({ error: error.message });
