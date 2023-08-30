@@ -85,11 +85,11 @@ app.get('/getPessoaId/:id', async (req, res) => {
     const idPessoa = req.params.id;
 
     try {
-        const query = await pessoa.getOngId(idPessoa);
+        const query = await pessoa.getPessoaId(idPessoa);
         if (query) {
             res.json(query);
         } else {
-            res.status(404).json({ message: 'ONG não encontrada.' });
+            res.status(404).json({ message: 'pessoa não encontrada.' });
         }
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -116,10 +116,10 @@ app.put('/putPessoa/:id', async (req,res) => {
 });
 
 app.delete('/deletePessoa/:id', async (req, res) => {
-    const Id = req.params.id;
+    const id = req.params.id;
 
     try {
-        const result = await pessoa.deletePessoa(Id);
+        const result = await pessoa.deletePessoa(id);
         res.json({ result });
     } catch (error) {
         res.status(500).json({ error: error.message });

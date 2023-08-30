@@ -23,7 +23,7 @@ const setPessoa = async (Data) => {
 const putPessoa = async (id, Data) => {
     const query = 'update adopetme.Pessoa set';
     const idCollumName = "idPessoa";
-    const result = await updateBd(Data,query,idCollumName,id);
+    const result = await updateBd(Data, query, idCollumName, id);
     return result;
 }
 const deletePessoa = async (Id) => {

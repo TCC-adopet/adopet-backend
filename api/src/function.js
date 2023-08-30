@@ -25,7 +25,7 @@ async function salvarBd(dataObject, query){
 }
 
 async function updateBd(dataObject,query,idCollumName,idValue){
-    if(!id){
+    if(!idValue){
         throw new Error('id não fornecido.');
     }
     if (dataObject==null){
@@ -41,9 +41,15 @@ async function updateBd(dataObject,query,idCollumName,idValue){
     }
     const formattedQuery = `${query} ${columns.join(', ')} where ${idCollumName} = ${idValue}`
     try{
-        await connection.execute(formattedQuery,values);
-        const result = "Objeto atualizado com sucesso";
-        return result;
+        [res] = await connection.execute(formattedQuery,values);
+        const result = null;
+        if(res>0){
+            result = "Objeto atualizado com sucesso";
+            return result;
+        }
+        else{
+            throw new Error(`Erro, Objeto inexistente: ${error.message}`);  
+        }
     }catch (error){
         throw new Error(`Erro ao atualizar o objeto: ${error.message}`);
     }
