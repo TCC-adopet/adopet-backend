@@ -42,9 +42,8 @@ async function updateBd(dataObject,query,idCollumName,idValue){
     const formattedQuery = `${query} ${columns.join(', ')} where ${idCollumName} = ${idValue}`
     try{
         [res] = await connection.execute(formattedQuery,values);
-        const result = null;
-        if(res>0){
-            result = "Objeto atualizado com sucesso";
+        if(res.affectedRows>0){
+            const result = "Objeto atualizado com sucesso";
             return result;
         }
         else{

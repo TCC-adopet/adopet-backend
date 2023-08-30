@@ -5,6 +5,12 @@ const ong = require("./src/ong");
 const pessoa = require("./src/pessoa");
 const UF = require("./src/UF");
 const cidades = require("./src/cidades");
+const RacaGatos = require("./src/racaGatos");
+const RacaCachorro = require("./src/racaCachorros");
+const VacinasFelinas = require("./src/vacinasFelinas");
+const VacinasCaninas = require("./src/vacinasCaninas");
+const animal = require("./src/animal");
+const adocao = require("./src/adocao");
 
 const app = express();  // Aqui, estamos chamando a função express() para criar o aplicativo
 
@@ -167,6 +173,198 @@ app.get('/getCidadesId/:id', async (req, res) => {
         } else {
             res.status(404).json({ message: 'Cidade não encontrada.' });
         }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+//endpoints para RacaGatos
+
+app.get('/getRacaGatos', async (req,res) => {
+    const query = await RacaGatos.getRacaGatos();
+    return res.status(201).json(query);
+});
+
+app.get('/getRacaGatosId/:id', async (req, res) => {
+    const idRaca = req.params.id;
+
+    try {
+        const query = await RacaGatos.getRacaGatosId(idRaca);
+        if (query) {
+            res.json(query);
+        } else {
+            res.status(404).json({ message: 'Raça não encontrada.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+//endpoints para racaCachorros
+
+app.get('/getRacaCachorro', async (req,res) => {
+    const query = await RacaCachorro.getRacaCachorro();
+    return res.status(201).json(query);
+});
+
+app.get('/getRacaCachorroId/:id', async (req, res) => {
+    const idRaca = req.params.id;
+
+    try {
+        const query = await RacaCachorro.getRacaCachorroId(idRaca);
+        if (query) {
+            res.json(query);
+        } else {
+            res.status(404).json({ message: 'Raça não encontrada.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+//endpoints para vacinasFelinas
+
+app.get('/getVacinasFelinas', async (req,res) => {
+    const query = await VacinasFelinas.getVacinasFelinas();
+    return res.status(201).json(query);
+});
+
+app.get('/getVacinasFelinasId/:id', async (req, res) => {
+    const idVacina = req.params.id;
+
+    try {
+        const query = await VacinasFelinas.getVacinasFelinasId(idVacina);
+        if (query) {
+            res.json(query);
+        } else {
+            res.status(404).json({ message: 'Vacina não encontrada.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+//endpoints para vacinasCaninas
+
+app.get('/getVacinasCaninas', async (req,res) => {
+    const query = await VacinasCaninas.getVacinasCaninas();
+    return res.status(201).json(query);
+});
+
+app.get('/getVacinasCaninasId/:id', async (req, res) => {
+    const idVacina = req.params.id;
+
+    try {
+        const query = await VacinasCaninas.getVacinasCaninasId(idVacina);
+        if (query) {
+            res.json(query);
+        } else {
+            res.status(404).json({ message: 'Vacina não encontrada.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+//endpoints para animais
+
+app.get('/getAnimal', async (req,res) => {
+    const query = await animal.getAnimal();
+    return res.status(201).json(query);
+});
+
+app.get('/getAnimalId/:id', async (req, res) => {
+    const idAnimal = req.params.id;
+
+    try {
+        const query = await animal.getAnimalId(idAnimal);
+        if (query) {
+            res.json(query);
+        } else {
+            res.status(404).json({ message: 'animal não encontrada.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.post('/setAnimal', async (req, res) => {
+    try {
+        const insertId = await animal.setAnimal(req.body);
+        res.json({ insertId });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.put('/putAnimal/:id', async (req,res) => {
+    const id = req.params.id;
+    try {
+        const query = await animal.putAnimal(id,req.body);
+        res.json({query});
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.delete('/deleteAnimal/:id', async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const result = await animal.deleteAnimal(id);
+        res.json({ result });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+//endpoints para adoção
+
+app.get('/getAdocao', async (req,res) => {
+    const query = await adocao.getAdocao();
+    return res.status(201).json(query);
+});
+
+app.get('/getAdocaoId/:id', async (req, res) => {
+    const idAdocao = req.params.id;
+
+    try {
+        const query = await adocao.getAdocaoId(idAdocao);
+        if (query) {
+            res.json(query);
+        } else {
+            res.status(404).json({ message: 'Adoção não encontrada.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.post('/setAdocao', async (req, res) => {
+    try {
+        const insertId = await adocao.setAdocao(req.body);
+        res.json({ insertId });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.put('/putAdocao/:id', async (req,res) => {
+    const id = req.params.id;
+    try {
+        const query = await adocao.putAdocao(id,req.body);
+        res.json({query});
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.delete('/deleteAdocao/:id', async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const result = await adocao.deleteAdocao(id);
+        res.json({ result });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
