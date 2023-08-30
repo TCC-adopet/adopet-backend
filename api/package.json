@@ -1,0 +1,19 @@
+{
+  "name": "adopetmeapi",
+  "version": "1.0.0",
+  "description": "api feita para funcionar com o banco de dados do meu tcc adopetme",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gustavo Dias",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0",
+    "nodemon": "^3.0.1"
+  }
+}
