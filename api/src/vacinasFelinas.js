@@ -1,4 +1,5 @@
 const connection = require('./connection');
+const { lerIdBd } = require('./function');
 
 const getVacinasFelinas = async() => {
     const [query] = await connection.execute('SELECT * FROM adopetme.VacinasFelinas');
@@ -6,10 +7,8 @@ const getVacinasFelinas = async() => {
 }
 
 const getVacinasFelinasId = async (id) => {
-    const [query] = await connection.execute('SELECT * FROM adopetme.VacinasFelinas WHERE idVacina = ?', [id]);
-    if (query.length === 0) {
-        return null; // Retorna null se não encontrar nenhum elemento com o ID especificado
-    }
+    const quer = 'SELECT * FROM adopetme.VacinasFelinas WHERE idVacina = ?';
+    [query] = await lerIdBd(id,quer);
     return query[0]; // Retorna o primeiro elemento encontrado (já que estamos buscando por ID)
 }
 

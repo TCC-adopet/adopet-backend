@@ -1,5 +1,5 @@
 const connection = require('./connection');
-const {salvarBd, updateBd, deleteBd } = require('./function')
+const {salvarBd, deleteBd, lerIdBd } = require('./function');
 
 const getPedidoAdocao = async () => {
     const [query] = await connection.execute('SELECT * FROM adopetme.PedidoAdocao');
@@ -7,10 +7,8 @@ const getPedidoAdocao = async () => {
 }
 
 const getPedidoAdocaoId = async (id) => {
-    const [query] = await connection.execute('SELECT * FROM adopetme.PedidoAdocao WHERE idPedido = ?', [id]);
-    if (query.length === 0) {
-        return null; 
-    }
+    const quer = 'SELECT * FROM adopetme.PedidoAdocao WHERE idPedido = ?';
+    [query] = await lerIdBd(id,quer);
     return query[0]; 
 }
 

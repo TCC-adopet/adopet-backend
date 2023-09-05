@@ -1,5 +1,13 @@
 const connection = require('./connection');
 
+async function lerIdBd(id, quer){
+    const [query] = await connection.execute(quer, id);
+    if (query.length === 0) {
+        return null; // Retorna null se não encontrar nenhum elemento com o ID especificado
+    }
+    return query[0]; // Retorna o primeiro elemento encontrado (já que estamos buscando por ID)
+}
+
 async function salvarBd(dataObject, query){
     if(dataObject == null){
         throw new Error('informações não fornecido.');
@@ -69,6 +77,7 @@ async function deleteBd(query,id,idCollumName){
 }
 
 module.exports = {
+    lerIdBd,
     salvarBd,
     updateBd,
     deleteBd

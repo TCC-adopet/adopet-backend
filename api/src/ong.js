@@ -1,5 +1,5 @@
 const connection = require('./connection');
-const {salvarBd, updateBd, deleteBd } = require('./function')
+const {lerIdBd, salvarBd, updateBd, deleteBd } = require('./function')
 
 const getOng = async () => {
     const [query] = await connection.execute('SELECT * FROM adopetme.ong');
@@ -7,10 +7,8 @@ const getOng = async () => {
 }
 
 const getOngId = async (id) => {
-    const [query] = await connection.execute('SELECT * FROM adopetme.ong WHERE idONG = ?', [id]);
-    if (query.length === 0) {
-        return null; // Retorna null se não encontrar nenhum elemento com o ID especificado
-    }
+    const quer = 'SELECT * FROM adopetme.ong WHERE idONG = ?';
+    [query] = await lerIdBd(id,quer);
     return query[0]; // Retorna o primeiro elemento encontrado (já que estamos buscando por ID)
 }
 

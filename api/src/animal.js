@@ -1,5 +1,5 @@
 const connection = require('./connection');
-const {salvarBd, updateBd, deleteBd } = require('./function')
+const { lerIdBd, salvarBd, updateBd, deleteBd } = require('./function')
 
 const getAnimal = async () => {
     const [query] = await connection.execute('SELECT * FROM adopetme.Animal');
@@ -7,10 +7,8 @@ const getAnimal = async () => {
 }
 
 const getAnimalId = async (id) => {
-    const [query] = await connection.execute('SELECT * FROM adopetme.Animal WHERE idAnimal = ?', [id]);
-    if (query.length === 0) {
-        return null; 
-    }
+    const quer = 'SELECT * FROM adopetme.Animal WHERE idAnimal = ?';
+    [query] = await lerIdBd(id,quer);
     return query[0]; 
 }
 
