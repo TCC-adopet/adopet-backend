@@ -3,6 +3,7 @@ require("dotenv").config();
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
+var cors = require('cors');
 
 var routes = require("./routes/route");
 
@@ -21,6 +22,13 @@ database.once("connected", () => {
 });
 
 var app = express();
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+    app.use(cors());
+    next();
+});
 
 app.use(bodyParser.json());
 app.use("/api", routes);
