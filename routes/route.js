@@ -8,9 +8,10 @@ module.exports = router;
 
 //Post Method
 router.post("/post", async (req, res) => {
+    
   var data = new UserModel({
-    name: req.body.name,
-    age: req.body.age,
+    nome: req.body.nome,
+    sobreNome: req.body.sobreNome,
   });
 
   try {

@@ -14,7 +14,8 @@ var UserSchema = new mongoose.Schema({
   apelido: {required: true, type: String},
   numeroTelefone: {required: true, type: Number},
   senha: {required: true, type: String},
-  dataNascimento: {required: true, type: Date}
+  dataNascimento: {required: true, type: Date},
+  email:   {required: true, type:String}
 });
 
 var Users = mongoose.model("Users", UserSchema);
