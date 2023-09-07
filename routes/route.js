@@ -30,3 +30,40 @@ router.get("/getAll", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+//Get by ID Method
+router.get("/getOne/:id", async (req, res) => {
+    try {
+      var data = await UserModel.findById(req.params.id);
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+  
+  //Update by ID Method
+  router.put("/update/:id", async (req, res) => {
+    try {
+      var id = req.params.id;
+      var updatedData = req.body;
+      var options = { new: true };
+      console.log(updatedData);
+  
+      var result = await UserModel.findOneAndUpdate({"_id": id.trim()}, updatedData, options);
+  
+      res.send(result);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+  
+  //Delete by ID Method
+  router.delete("/delete/:id", async (req, res) => {
+    try {
+      var id = req.params.id;
+      var data = await UserModel.findByIdAndDelete(id);
+      res.send(`Document with ${data.name} has been deleted..`);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  });
