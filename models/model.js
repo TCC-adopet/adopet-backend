@@ -54,8 +54,32 @@ var PedidoAdocaoSchema = new mongoose.Schema({
 
 var PedidoAdocao = mongoose.model("pedidoAdocao", PedidoAdocaoSchema);
 
+/**
+ * SCHEMA PARA ANIMAL
+ */
+
+var AnimalSchema = new mongoose.Schema({
+  dataNascimento: {type: Date},
+  idONG: {required: true, type: String},
+  tipoRaca: {required: true, type: String},
+  racaCachorro: {type: String},
+  racaGato: {type: String},
+  nomeAnimal: {required: true, type: String},
+  porte: {type: String},
+  sexo: {required: true, type: String},
+  vacinaGato: {type: String},
+  vacinaCachorro: {type: String},
+  animalCastrado: {type:String},
+  animalAdotado: {type: String},
+  descricaoAnimal: {type: String},
+  dataUltimaVacina: {type: Date}
+});
+
+var Animal = mongoose.model("animal", AnimalSchema);
+
 module.exports = {
   pessoa,
   ong,
-  PedidoAdocao
+  PedidoAdocao,
+  Animal
 }

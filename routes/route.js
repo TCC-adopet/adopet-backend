@@ -4,6 +4,7 @@ var Functions = require("../functions/function");
 var PessoaModel = Models.pessoa;
 var OngModel = Models.ong;
 var PedidoAdocaoModel = Models.PedidoAdocao;
+var AnimalModel = Models.Animal;
 
 var router = express.Router();
 
@@ -159,6 +160,60 @@ router.get("/getOnePessoa/:id", async (req, res) => {
     try {
       var id = req.params.id;
       var resp = await Functions.deleteBD(id,PedidoAdocaoModel);
+      res.json(resp);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  /**
+   * ROUTES PARA ANIMAIS
+   */
+
+  router.post("/postAnimal", async (req, res) => {
+    var dataObject = req.body;
+    try {
+      var dataToSave = await Functions.salvarBD(dataObject, AnimalModel);
+      res.status(200).json(dataToSave);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  router.get("/getAllAnimal", async (req, res) => {
+    try{
+      var dat = await Functions.getAll(AnimalModel);
+      res.status(200).json(dat);
+    }catch(error) {
+      res.status(400).json({ message: error.message })
+    }
+  });
+
+  router.get("/getOneAnimal/:id", async (req, res) => {
+    try{
+      var id = req.params.id;
+      var response = await Functions.getOne(id, AnimalModel);
+      res.status(200).json(response);
+    }catch(error) {
+      res.status(400).json({ message: error.message});
+    }
+  });
+
+  router.put("/updateAnimal/:id", async (req, res) => {
+    var id = req.params.id;
+    var updatedData = req.body;
+    try{
+    var data = await Functions.updateBD(id,updatedData,AnimalModel);
+    res.status(200).json(data);
+    }catch(error){
+      res.status(500).json({ message:error.message })
+    }
+  });
+
+  router.delete("/deleteAnimal/:id", async (req, res) => {
+    try {
+      var id = req.params.id;
+      var resp = await Functions.deleteBD(id,AnimalModel);
       res.json(resp);
     } catch (error) {
       res.status(400).json({ message: error.message });
