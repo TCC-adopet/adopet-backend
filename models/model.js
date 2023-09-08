@@ -1,25 +1,24 @@
 var mongoose = require("mongoose");
 
-var UserSchema = new mongoose.Schema({
+var PessoaSchema = new mongoose.Schema({
   nome: {required: true, type: String},
-  sobreNome: {required: true, type: String},
-  age: {required: true, type: Number},
-  codCpf: {required: true, type: Number},
-  idCidade: {required: true, type: Number},
-  bairro: {required: true, type: String},
-  rua: {required: true, type: String},
-  numeroCasa: {required: true, type: Number},
-  codCEP: {required: true, type: Number},
-  sexo: {required: true, type: String},
-  apelido: {required: true, type: String},
-  numeroTelefone: {required: true, type: Number},
+  sobreNome: {type: String},
+  codCpf: {type: Number},
+  idCidade: {type: Number},
+  bairro: {type: String},
+  rua: {type: String},
+  numeroCasa: {type: Number},
+  codCEP: {type: Number},
+  sexo: {type: String},
+  apelido: {type: String},
+  numeroTelefone: {type: Number},
   senha: {required: true, type: String},
-  dataNascimento: {required: true, type: Date},
+  dataNascimento: {type: Date},
   email:   {required: true, type:String}
 });
 
-var Users = mongoose.model("Users", UserSchema);
+var pessoa = mongoose.model("pessoa", PessoaSchema);
 
 module.exports = {
-  Users 
+  pessoa
 }

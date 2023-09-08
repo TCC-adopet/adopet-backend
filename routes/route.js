@@ -1,21 +1,17 @@
 var express = require("express");
 var Models = require("../models/model");
-var UserModel = Models.Users;
+var Functions = require("../functions/function");
+var PessoaModel = Models.pessoa;
 
 var router = express.Router();
 
 module.exports = router;
 
 //Post Method
-router.post("/post", async (req, res) => {
-    
-  var data = new UserModel({
-    nome: req.body.nome,
-    sobreNome: req.body.sobreNome,
-  });
-
+router.post("/postPessoa", async (req, res) => {
+  var dataObject = req.body;
   try {
-    var dataToSave = await data.save();
+    var dataToSave = await Functions.salvarBD(dataObject, PessoaModel);
     res.status(200).json(dataToSave);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -23,47 +19,44 @@ router.post("/post", async (req, res) => {
 });
 
 //Get all Method
-router.get("/getAll", async (req, res) => {
-  try {
-    var data = await UserModel.find();
-    res.json(data);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+router.get("/getAllPessoa", async (req, res) => {
+  try{
+    var dat = await Functions.getAll(PessoaModel);
+    res.status(200).json(dat);
+  }catch(error) {
+    res.status(400).json({ message: error.message })
   }
 });
 
 //Get by ID Method
-router.get("/getOne/:id", async (req, res) => {
-    try {
-      var data = await UserModel.findById(req.params.id);
-      res.json(data);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+router.get("/getOnePessoa/:id", async (req, res) => {
+    try{
+      var id = req.params.id;
+      var response = await Functions.getOne(id, PessoaModel);
+      res.status(200).json(response);
+    }catch(error) {
+      res.status(400).json({ message: error.message});
     }
   });
   
   //Update by ID Method
-  router.put("/update/:id", async (req, res) => {
-    try {
-      var id = req.params.id;
-      var updatedData = req.body;
-      var options = { new: true };
-      console.log(updatedData);
-  
-      var result = await UserModel.findOneAndUpdate({"_id": id.trim()}, updatedData, options);
-  
-      res.send(result);
-    } catch (error) {
-      res.status(400).json({ message: error.message });
+  router.put("/updatePessoa/:id", async (req, res) => {
+    var id = req.params.id;
+    var updatedData = req.body;
+    try{
+    var data = await Functions.updateBD(id,updatedData,PessoaModel);
+    res.status(200).json(data);
+    }catch(error){
+      res.status(500).json({ message:error.message })
     }
   });
   
   //Delete by ID Method
-  router.delete("/delete/:id", async (req, res) => {
+  router.delete("/deletePessoa/:id", async (req, res) => {
     try {
       var id = req.params.id;
-      var data = await UserModel.findByIdAndDelete(id);
-      res.send(`Document with ${data.name} has been deleted..`);
+      var resp = await Functions.deleteBD(id,PessoaModel);
+      res.resp;
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
