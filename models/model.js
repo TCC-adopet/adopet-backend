@@ -42,7 +42,20 @@ var OngSchema = new mongoose.Schema({
 
 var ong = mongoose.model("ong",OngSchema);
 
+/**
+ * SCHEMA PARA PEDIDO DE ADOÇÃO
+ */
+
+var PedidoAdocaoSchema = new mongoose.Schema({
+  idPessoa: {required: true, type: String},
+  dataPedido: {required: true, type: Date},
+  idONG: {required: true, type: String}
+});
+
+var PedidoAdocao = mongoose.model("pedidoAdocao", PedidoAdocaoSchema);
+
 module.exports = {
   pessoa,
-  ong
+  ong,
+  PedidoAdocao
 }

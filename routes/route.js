@@ -3,6 +3,7 @@ var Models = require("../models/model");
 var Functions = require("../functions/function");
 var PessoaModel = Models.pessoa;
 var OngModel = Models.ong;
+var PedidoAdocaoModel = Models.PedidoAdocao;
 
 var router = express.Router();
 
@@ -115,6 +116,49 @@ router.get("/getOnePessoa/:id", async (req, res) => {
     try {
       var id = req.params.id;
       var resp = await Functions.deleteBD(id,OngModel);
+      res.json(resp);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  /**
+   * ROUTES PARA PEDIDO DE ADOÇÃO
+   */
+
+  router.post("/postPedidoAdocao", async (req, res) => {
+    var dataObject = req.body;
+    try {
+      var dataToSave = await Functions.salvarBD(dataObject, PedidoAdocaoModel);
+      res.status(200).json(dataToSave);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  router.get("/getAllPedidoAdocao", async (req, res) => {
+    try{
+      var dat = await Functions.getAll(PedidoAdocaoModel);
+      res.status(200).json(dat);
+    }catch(error) {
+      res.status(400).json({ message: error.message })
+    }
+  });
+
+  router.get("/getOnePedidoAdocao/:id", async (req, res) => {
+    try{
+      var id = req.params.id;
+      var response = await Functions.getOne(id, PedidoAdocaoModel);
+      res.status(200).json(response);
+    }catch(error) {
+      res.status(400).json({ message: error.message});
+    }
+  });
+
+  router.delete("/deletePedidoAdocao/:id", async (req, res) => {
+    try {
+      var id = req.params.id;
+      var resp = await Functions.deleteBD(id,PedidoAdocaoModel);
       res.json(resp);
     } catch (error) {
       res.status(400).json({ message: error.message });
