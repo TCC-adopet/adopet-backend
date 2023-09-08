@@ -10,7 +10,7 @@ async function salvarBD(objeto, tipo) {
       throw error;
     }
   }
-  async function updateBD(id, updatedData, options, tipoModel) {
+  async function updateBD(id, updatedData, tipoModel) {
     try {
       var options = { new: true };
       var result = await tipoModel.findOneAndUpdate({ "_id": id.trim() }, updatedData, options);
