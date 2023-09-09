@@ -77,9 +77,24 @@ var AnimalSchema = new mongoose.Schema({
 
 var Animal = mongoose.model("animal", AnimalSchema);
 
+/**
+ * SCHEMA PARA ADOÇÃO
+ */
+
+var AdocaoSchema = new mongoose.Schema({
+  idPedido: {required: true, type: String},
+  petAdotado: {type: String},
+  dataAdocao: {type: String},
+  dataRecusa: {type: String}, //caso o pet seja devolvido
+  idAnimal: {required: true, type: String}
+});
+
+var Adocao = mongoose.model("adocao", AdocaoSchema);
+
 module.exports = {
   pessoa,
   ong,
   PedidoAdocao,
-  Animal
+  Animal,
+  Adocao
 }
