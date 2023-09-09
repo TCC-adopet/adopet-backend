@@ -8,6 +8,8 @@ var AnimalModel = Models.Animal;
 var AdocaoModel = Models.Adocao;
 var UfModel = Models.UF;
 var CidadeModel = Models.Cidade;
+var RacaCachorroModel = Models.RacaCachorro;
+var RacaGatoModel = Models.RacaGato;
 
 var router = express.Router();
 
@@ -337,6 +339,72 @@ router.get("/getOneCidade/:id", async (req, res) => {
   try{
     var id = req.params.id;
     var response = await Functions.getOne(id, CidadeModel);
+    res.status(200).json(response);
+  }catch(error) {
+    res.status(400).json({ message: error.message});
+  }
+});
+
+/**
+ * ROUTES PARA RAÇAS DE CACHORRO
+ */
+
+router.post("/postRacaCachorro", async (req, res) => {
+  var dataObject = req.body;
+  try {
+    var dataToSave = await Functions.salvarBD(dataObject, RacaCachorroModel);
+    res.status(200).json(dataToSave);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.get("/getAllRacaCachorro", async (req, res) => {
+  try{
+    var dat = await Functions.getAll(RacaCachorroModel);
+    res.status(200).json(dat);
+  }catch(error) {
+    res.status(400).json({ message: error.message })
+  }
+});
+
+router.get("/getOneRacaCachorro/:id", async (req, res) => {
+  try{
+    var id = req.params.id;
+    var response = await Functions.getOne(id, RacaCachorroModel);
+    res.status(200).json(response);
+  }catch(error) {
+    res.status(400).json({ message: error.message});
+  }
+});
+
+/**
+ * ROUTES PARA RAÇAS DE GATO
+ */
+
+router.post("/postRacaGato", async (req, res) => {
+  var dataObject = req.body;
+  try {
+    var dataToSave = await Functions.salvarBD(dataObject, RacaGatoModel);
+    res.status(200).json(dataToSave);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.get("/getAllRacaGato", async (req, res) => {
+  try{
+    var dat = await Functions.getAll(RacaGatoModel);
+    res.status(200).json(dat);
+  }catch(error) {
+    res.status(400).json({ message: error.message })
+  }
+});
+
+router.get("/getOneRacaGato/:id", async (req, res) => {
+  try{
+    var id = req.params.id;
+    var response = await Functions.getOne(id, RacaGatoModel);
     res.status(200).json(response);
   }catch(error) {
     res.status(400).json({ message: error.message});

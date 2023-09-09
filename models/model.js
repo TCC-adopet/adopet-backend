@@ -115,6 +115,26 @@ var CidadeSchema = new mongoose.Schema({
 
 var Cidade = mongoose.model("cidade", CidadeSchema);
 
+/**
+ * SCHEMA PARA RAÇAS DE CACHORRO
+ */
+
+var racaCachorroSchema = new mongoose.Schema({
+  nmRaca: {required: true, type: String}
+})
+
+var RacaCachorro = mongoose.model("racaCachorro", racaCachorroSchema);
+
+/**
+ * SCHEMA PARA RAÇAS DE GATO
+ */
+
+var racaGatoSchema = new mongoose.Schema({
+  nmRaca: {required: true, type: String}
+});
+
+var RacaGato = mongoose.model("racaGato", racaGatoSchema);
+
 module.exports = {
   pessoa,
   ong,
@@ -122,5 +142,7 @@ module.exports = {
   Animal,
   Adocao,
   UF,
-  Cidade
+  Cidade,
+  RacaCachorro,
+  RacaGato
 }
