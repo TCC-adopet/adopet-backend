@@ -6,6 +6,7 @@ var OngModel = Models.ong;
 var PedidoAdocaoModel = Models.PedidoAdocao;
 var AnimalModel = Models.Animal;
 var AdocaoModel = Models.Adocao;
+var UfModel = Models.UF;
 
 var router = express.Router();
 
@@ -272,5 +273,38 @@ router.delete("/deleteAdocao/:id", async (req, res) => {
     res.json(resp);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+});
+
+/**
+ * ROUTES PARA UFs
+ */
+
+router.post("/postUF", async (req, res) => {
+  var dataObject = req.body;
+  try {
+    var dataToSave = await Functions.salvarBD(dataObject, UfModel);
+    res.status(200).json(dataToSave);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.get("/getAllUF", async (req, res) => {
+  try{
+    var dat = await Functions.getAll(UfModel);
+    res.status(200).json(dat);
+  }catch(error) {
+    res.status(400).json({ message: error.message })
+  }
+});
+
+router.get("/getOneUF/:id", async (req, res) => {
+  try{
+    var id = req.params.id;
+    var response = await Functions.getOne(id, UfModel);
+    res.status(200).json(response);
+  }catch(error) {
+    res.status(400).json({ message: error.message});
   }
 });

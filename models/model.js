@@ -91,10 +91,23 @@ var AdocaoSchema = new mongoose.Schema({
 
 var Adocao = mongoose.model("adocao", AdocaoSchema);
 
+/**
+ * SCHEMA PARA UF
+ */
+
+var UfSchema = new mongoose.Schema({
+  idUF: {required: true, type: Number},
+  nmUF: {required: true, type: String},
+  siglaUF: {required: true, type: String}
+});
+
+var UF = mongoose.model("UF", UfSchema);
+
 module.exports = {
   pessoa,
   ong,
   PedidoAdocao,
   Animal,
-  Adocao
+  Adocao,
+  UF
 }
