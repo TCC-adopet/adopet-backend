@@ -10,6 +10,8 @@ var UfModel = Models.UF;
 var CidadeModel = Models.Cidade;
 var RacaCachorroModel = Models.RacaCachorro;
 var RacaGatoModel = Models.RacaGato;
+var VacinaFelinaModel = Models.VacinaFelina;
+var VacinaCaninaModel = Models.VacinaCanina;
 
 var router = express.Router();
 
@@ -405,6 +407,72 @@ router.get("/getOneRacaGato/:id", async (req, res) => {
   try{
     var id = req.params.id;
     var response = await Functions.getOne(id, RacaGatoModel);
+    res.status(200).json(response);
+  }catch(error) {
+    res.status(400).json({ message: error.message});
+  }
+});
+
+/**
+ * ROUTES PARA VACINAS FELINAS
+ */
+
+router.post("/postVacinaFelina", async (req, res) => {
+  var dataObject = req.body;
+  try {
+    var dataToSave = await Functions.salvarBD(dataObject, VacinaFelinaModel);
+    res.status(200).json(dataToSave);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.get("/getAllVacinaFelina", async (req, res) => {
+  try{
+    var dat = await Functions.getAll(VacinaFelinaModel);
+    res.status(200).json(dat);
+  }catch(error) {
+    res.status(400).json({ message: error.message })
+  }
+});
+
+router.get("/getOneVacinaFelina/:id", async (req, res) => {
+  try{
+    var id = req.params.id;
+    var response = await Functions.getOne(id, VacinaFelinaModel);
+    res.status(200).json(response);
+  }catch(error) {
+    res.status(400).json({ message: error.message});
+  }
+});
+
+/**
+ * ROUTES PARA VACINAS CANINAS
+ */
+
+router.post("/postVacinaCanina", async (req, res) => {
+  var dataObject = req.body;
+  try {
+    var dataToSave = await Functions.salvarBD(dataObject, VacinaCaninaModel);
+    res.status(200).json(dataToSave);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.get("/getAllVacinaCanina", async (req, res) => {
+  try{
+    var dat = await Functions.getAll(VacinaCaninaModel);
+    res.status(200).json(dat);
+  }catch(error) {
+    res.status(400).json({ message: error.message })
+  }
+});
+
+router.get("/getOneVacinaCanina/:id", async (req, res) => {
+  try{
+    var id = req.params.id;
+    var response = await Functions.getOne(id, VacinaCaninaModel);
     res.status(200).json(response);
   }catch(error) {
     res.status(400).json({ message: error.message});

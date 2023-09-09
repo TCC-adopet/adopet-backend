@@ -135,6 +135,28 @@ var racaGatoSchema = new mongoose.Schema({
 
 var RacaGato = mongoose.model("racaGato", racaGatoSchema);
 
+/**
+ * SCHEMA PARA VACINAS FELINAS
+ */
+
+var vacinaFelinaSchema = new mongoose.Schema({
+  nmVacina: {required: true, type: String},
+  validadeVacina: {required: true, type: String}
+});
+
+var VacinaFelina = mongoose.model("vacinaFelina",vacinaFelinaSchema);
+
+/**
+ * SCHEMA PARA VACINAS CANINAS
+ */
+
+var vacinaCaninaSchema = new mongoose.Schema({
+  nmVacina: {required: true, type: String},
+  validadeVacina: {required: true, type: String}
+});
+
+var VacinaCanina = mongoose.model("VacinaCanina", vacinaCaninaSchema);
+
 module.exports = {
   pessoa,
   ong,
@@ -144,5 +166,7 @@ module.exports = {
   UF,
   Cidade,
   RacaCachorro,
-  RacaGato
+  RacaGato,
+  VacinaFelina,
+  VacinaCanina
 }
