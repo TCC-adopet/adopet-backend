@@ -103,11 +103,24 @@ var UfSchema = new mongoose.Schema({
 
 var UF = mongoose.model("UF", UfSchema);
 
+/**
+ * SCHEMA PARA CIDADES
+ */
+
+var CidadeSchema = new mongoose.Schema({
+  idCidade: {required: true, type: Number},
+  nmCidade: {required: true, type: String},
+  idUF: {required: true, type:Number}
+});
+
+var Cidade = mongoose.model("cidade", CidadeSchema);
+
 module.exports = {
   pessoa,
   ong,
   PedidoAdocao,
   Animal,
   Adocao,
-  UF
+  UF,
+  Cidade
 }

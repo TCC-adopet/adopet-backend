@@ -7,6 +7,7 @@ var PedidoAdocaoModel = Models.PedidoAdocao;
 var AnimalModel = Models.Animal;
 var AdocaoModel = Models.Adocao;
 var UfModel = Models.UF;
+var CidadeModel = Models.Cidade;
 
 var router = express.Router();
 
@@ -303,6 +304,39 @@ router.get("/getOneUF/:id", async (req, res) => {
   try{
     var id = req.params.id;
     var response = await Functions.getOne(id, UfModel);
+    res.status(200).json(response);
+  }catch(error) {
+    res.status(400).json({ message: error.message});
+  }
+});
+
+/**
+ * ROUTES PARA CIDADES
+ */
+
+router.post("/postCidade", async (req, res) => {
+  var dataObject = req.body;
+  try {
+    var dataToSave = await Functions.salvarBD(dataObject, CidadeModel);
+    res.status(200).json(dataToSave);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.get("/getAllCidade", async (req, res) => {
+  try{
+    var dat = await Functions.getAll(CidadeModel);
+    res.status(200).json(dat);
+  }catch(error) {
+    res.status(400).json({ message: error.message })
+  }
+});
+
+router.get("/getOneCidade/:id", async (req, res) => {
+  try{
+    var id = req.params.id;
+    var response = await Functions.getOne(id, CidadeModel);
     res.status(200).json(response);
   }catch(error) {
     res.status(400).json({ message: error.message});
