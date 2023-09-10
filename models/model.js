@@ -7,7 +7,7 @@ var PessoaSchema = new mongoose.Schema({
   nome: {required: true, type: String},
   sobreNome: {type: String},
   codCpf: {type: Number},
-  idCidade: {type: Number},
+  nmCidade: {type: String},
   bairro: {type: String},
   rua: {type: String},
   numeroCasa: {type: Number},
@@ -31,7 +31,7 @@ var OngSchema = new mongoose.Schema({
   nomeDiretor: {required: true, type: String},
   codCnpj: {required: true, type: Number},
   cpfDiretor: {required: true, type: Number},
-  idCidade: {type: Number},
+  nmCidade: {type: String},
   rua: {type: String},
   numeroEstabelecimento: {type: Number},
   codCEP: {type: Number},
@@ -47,9 +47,9 @@ var ong = mongoose.model("ong",OngSchema);
  */
 
 var PedidoAdocaoSchema = new mongoose.Schema({
-  idPessoa: {required: true, type: String},
+  nmPessoa: {required: true, type: String},
   dataPedido: {required: true, type: Date},
-  idONG: {required: true, type: String}
+  nmONG: {required: true, type: String}
 });
 
 var PedidoAdocao = mongoose.model("pedidoAdocao", PedidoAdocaoSchema);
@@ -60,7 +60,7 @@ var PedidoAdocao = mongoose.model("pedidoAdocao", PedidoAdocaoSchema);
 
 var AnimalSchema = new mongoose.Schema({
   dataNascimento: {type: Date},
-  idONG: {required: true, type: String},
+  nmONG: {required: true, type: String},
   tipoRaca: {required: true, type: String},
   racaCachorro: {type: String},
   racaGato: {type: String},
