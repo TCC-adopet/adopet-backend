@@ -47,7 +47,7 @@ async function logar(res,body){
 }
 
 async function logado(req,res,next){
-    Auth = req.cookie.Token || null;
+    Auth = req.cookies.Token || null;
     if(typeof(Auth) == 'undefined' || Auth == '' || Auth == null){
         return res.send({error: {login: 'Não autorizado.'}});
     }else {

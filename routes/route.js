@@ -59,8 +59,10 @@ router.get("/getOnePessoa/:id", async (req, res) => {
 router.put("/updatePessoa/:id", async (req, res) => {
   var id = req.params.id;
   var updatedData = req.body;
+  console.log(updatedData);
   try{
   var data = await Functions.updateBD(id,updatedData,PessoaModel);
+  console.log(data);
   res.status(200).json(data);
   }catch(error){
     res.status(500).json({ message:error.message })
