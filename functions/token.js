@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var jsonwebtoken = require('jsonwebtoken');
+var cookieParser = require('cookie-parser');
 
 var model = require('../models/model');
 var pessoa = model.pessoa;
@@ -60,7 +61,7 @@ async function logado(req,res,next){
 
 async function deslogar(res){
     res.clearCookie('Token');
-    res.redirect('/');
+    res.send( "Usuario deslogado" );
 }
 
 module.exports = {

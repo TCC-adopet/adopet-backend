@@ -56,7 +56,7 @@ router.get("/getOnePessoa/:id", async (req, res) => {
 });
 
 //Update by ID Method
-router.put("/updatePessoa/:id",logado, async (req, res) => {
+router.put("/updatePessoa/:id", async (req, res) => {
   var id = req.params.id;
   var updatedData = req.body;
   try{
@@ -68,7 +68,7 @@ router.put("/updatePessoa/:id",logado, async (req, res) => {
 });
 
 //Delete by ID Method
-router.delete("/deletePessoa/:id",logado, async (req, res) => {
+router.delete("/deletePessoa/:id", async (req, res) => {
   try {
     var id = req.params.id;
     var resp = await Functions.deleteBD(id,PessoaModel);
