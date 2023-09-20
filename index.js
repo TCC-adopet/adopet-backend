@@ -39,7 +39,8 @@ app.use("/api", routes);
 app.use(express.json());
 
 app.post('/api/logar', async(req,res) => {
-  res.send(await token.logar(res,req.body));
+  var resp = await token.logar(res,req.body);
+  res.json({resp});
 });
 
 app.get('/api/deslogar', async(req,res) => {

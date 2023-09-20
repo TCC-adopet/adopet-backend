@@ -56,7 +56,7 @@ router.get("/getOnePessoa/:id", async (req, res) => {
 });
 
 //Update by ID Method
-router.put("/updatePessoa/:id", async (req, res) => {
+router.put("/updatePessoa/:id", logado, async (req, res) => {
   var id = req.params.id;
   var updatedData = req.body;
   console.log(updatedData);

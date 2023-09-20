@@ -20,7 +20,7 @@ async function logar(res,body){
         return {error: error}
     });
 
-    if(Find == '' || Find.error){
+    if(Find == '' || Find.error || Find == null){
         Find = await ong.find({email,senha}).then(response => {
             og = true;
             return response;
@@ -36,7 +36,7 @@ async function logar(res,body){
         id: Find[0]._id,
         nome: Find[0].nome,
         email: Find[0].email
-    }, 'SenhaParaProteger');
+    }, 'SenhaParaProteger', {expiresIn: 604800});
 
     if(og=true){
         Token.nome = Find[0].nomeEstabelecimento;
@@ -47,16 +47,13 @@ async function logar(res,body){
 }
 
 async function logado(req,res,next){
-    Auth = req.cookies.Token || null;
-    if(typeof(Auth) == 'undefined' || Auth == '' || Auth == null){
-        return res.send({error: {login: 'Não autorizado.'}});
-    }else {
-        try{
-            Token = await jsonwebtoken.verify(Auth,'SenhaParaProteger');
-        }catch(error) {
-            return res.send( { error: { login: 'Não autorizado.' } });
-        }
-    }
+    var token = req.headers['x-acess-token'];
+    jsonwebtoken.verify(token,'SenhaParaProteger',(error,decoded) => {
+        if(error) return res.status(401).end();
+
+        req.userId = decode.id;
+        next();
+    })
 }
 
 async function deslogar(res){
