@@ -45,7 +45,7 @@ async function logar(res,body){
 
 async function logado(req,res,next){
     var token = req.headers['x-acess-token'];
-    var index = blacklist.findIndex(token);
+    var index = blacklist.findIndex(item => item === token);
     if(index!=-1) return res.status(401).end();
     jwt.verify(token,process.env.SECRECT, (error, decoded) => {
         if(error) return res.status(401).end();
