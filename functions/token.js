@@ -1,6 +1,4 @@
-var mongoose = require('mongoose');
-var jsonwebtoken = require('jsonwebtoken');
-var cookieParser = require('cookie-parser');
+var jwt = require('jsonwebtoken');
 
 var model = require('../models/model');
 var pessoa = model.pessoa;
@@ -8,6 +6,7 @@ var ong = model.ong;
 
 async function logar(res,body){
     var og = false;
+    var id;
     var email = body.email;
     var senha = body.senha;
 
@@ -15,7 +14,11 @@ async function logar(res,body){
         return {error: 'Dados insuficientes'}
     }
     Find = await pessoa.find({email,senha}).then(response => {
-        return response;
+        if(email === pessoa.email && senha === pessoa.senha){
+            id = pessoa._id;
+            email = pessoa.email;
+            senha = pessoa.senha;
+        }
     }).catch(error => {
         return {error: error}
     });
@@ -23,7 +26,11 @@ async function logar(res,body){
     if(Find == '' || Find.error || Find == null){
         Find = await ong.find({email,senha}).then(response => {
             og = true;
-            return response;
+            if(email === ong.email && senha === ong.senha){
+                id = ong._id;
+                email = ong.email;
+                senha = ong.senha;
+            }
         }).catch(error => {
             return {error: error}
         });
@@ -32,33 +39,27 @@ async function logar(res,body){
             return {error: 'E-mail ou senha incorretos.'}
         }
     }
-    Token = await jsonwebtoken.sign({
-        id: Find[0]._id,
-        nome: Find[0].nome,
-        email: Find[0].email
-    }, 'SenhaParaProteger', {expiresIn: 604800});
-
-    if(og=true){
-        Token.nome = Find[0].nomeEstabelecimento;
-    }
-
-    res.cookie('Token', Token);
-    res.sendStatus(200);
+    var token = jwt.sign({email, senha},process.env.SECRECT, {expiresIn: 604.800} );
+    return id, og, token;
 }
 
 async function logado(req,res,next){
     var token = req.headers['x-acess-token'];
-    jsonwebtoken.verify(token,'SenhaParaProteger',(error,decoded) => {
+    var index = blacklist.findIndex(token);
+    if(index!=-1) return res.status(401).end();
+    jwt.verify(token,process.env.SECRECT, (error, decoded) => {
         if(error) return res.status(401).end();
 
-        req.userId = decode.id;
+        req.email = decoded.email;
+        req.senha = decoded.senha;
         next();
     })
 }
-
+var blacklist = [];
 async function deslogar(res){
-    res.clearCookie('Token');
-    res.send( "Usuario deslogado" );
+    blacklist.push(req.headers['x-acess-token']);
+    res = "Logout executado com sucesso";
+    return res;
 }
 
 module.exports = {
