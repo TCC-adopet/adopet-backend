@@ -7,6 +7,7 @@ async function PedidosAdocaoONG(idONG) {
         $match: { idONG: idONG }
         //filtra os documentos pelo ID da ONG fornecido no chamado da função
       },
+      {
         $lookup: {
           from: 'ong',
           localField: 'idONG',
