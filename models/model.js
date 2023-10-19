@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var { Types: { ObjectId } } = mongoose;
 
 /**
  * SCHEMA PARA PESSOA
@@ -47,9 +48,9 @@ var ong = mongoose.model("ong",OngSchema);
  */
 
 var PedidoAdocaoSchema = new mongoose.Schema({
-  idPessoa: {required: true, type: String},
+  idPessoa: {required: true, type: ObjectId },
   dataPedido: {required: true, type: Date},
-  idONG: {required: true, type: String}
+  idONG: {required: true, type: ObjectId }
 });
 
 var PedidoAdocao = mongoose.model("pedidoAdocao", PedidoAdocaoSchema);
@@ -82,11 +83,11 @@ var Animal = mongoose.model("animal", AnimalSchema);
  */
 
 var AdocaoSchema = new mongoose.Schema({
-  idPedido: {required: true, type: String},
+  idPedido: {required: true, type: ObjectId},
   petAdotado: {type: String},
   dataAdocao: {type: String},
   dataRecusa: {type: String}, //caso o pet seja devolvido
-  idAnimal: {required: true, type: String}
+  idAnimal: {required: true, type: ObjectId}
 });
 
 var Adocao = mongoose.model("adocao", AdocaoSchema);

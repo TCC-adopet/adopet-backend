@@ -2,6 +2,7 @@ var express = require("express");
 var Models = require("../models/model");
 var Functions = require("../functions/function");
 var token = require("../functions/token");
+var PedidosAdocao = require("../aggregation/pedidoAdocao");
 var logado = token.logado;
 var PessoaModel = Models.pessoa;
 var OngModel = Models.ong;
@@ -147,23 +148,14 @@ router.post("/postPedidoAdocao", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-
-router.get("/getAllPedidoAdocao", async (req, res) => {
-  try{
-    var dat = await Functions.getAll(PedidoAdocaoModel);
-    res.status(200).json(dat);
-  }catch(error) {
-    res.status(400).json({ message: error.message })
-  }
-});
-
-router.get("/getOnePedidoAdocao/:id", async (req, res) => {
-  try{
-    var id = req.params.id;
-    var response = await Functions.getOne(id, PedidoAdocaoModel);
-    res.status(200).json(response);
-  }catch(error) {
-    res.status(400).json({ message: error.message});
+//Retirei a rota /getAllPedidoAdocao, pois não irá ser utilizada, ja que não tem motivos para a ONG ou o Cliente conseguir ter acesso ou averiguar todos os pedidos de adoção feito no aplicativo
+router.get("/getPedidoAdocaoONG/:id", async (req, res) => {
+  var id = req.params.id;
+  try {
+    var resultado = await PedidosAdocao.PedidosAdocaoONG(id);
+    res.json(resultado);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 });
 

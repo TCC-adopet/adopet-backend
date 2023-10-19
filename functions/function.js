@@ -1,6 +1,3 @@
-var express = require("express");
-var Models = require("../models/model");
-
 async function salvarBD(objeto, tipo) {
     try {
       var data = new tipo(objeto);

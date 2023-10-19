@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser');
 var routes = require("./routes/route");
 
 var token = require("./functions/token");
+const { receber } = require("./aggregation/pedidoAdocao");
 
 var mongoString = process.env.DATABASE_URL;
 var port = process.env.PORT || 3000;
@@ -41,6 +42,10 @@ app.use(express.json());
 app.post('/api/logar', async(req,res) => {
   res.send(await token.logar(res,req.body));
 });
+
+app.get('/api/', async(req,res)=>{
+  res.send(await receber);
+})
 
 app.get('/api/deslogar', async(req,res) => {
   res.send(await token.deslogar(res));
