@@ -3,6 +3,8 @@ var Models = require("../models/model");
 var Functions = require("../functions/function");
 var token = require("../functions/token");
 var PedidosAdocao = require("../aggregation/pedidoAdocao");
+var animal = require("../aggregation/animal");
+var adocao = require("../aggregation/adocao");
 var logado = token.logado;
 var PessoaModel = Models.pessoa;
 var OngModel = Models.ong;
@@ -159,6 +161,16 @@ router.get("/getPedidoAdocaoONG/:id", async (req, res) => {
   }
 });
 
+router.get("/getPedidoAdocaoPessoa/:id", async (req, res) => {
+  var id = req.params.id;
+  try {
+    var resultado = await PedidosAdocao.PedidosAdocaoPessoa(id);
+    res.json(resultado);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 router.delete("/deletePedidoAdocao/:id", async (req, res) => {
   try {
     var id = req.params.id;
@@ -185,7 +197,7 @@ router.post("/postAnimal", async (req, res) => {
 
 router.get("/getAllAnimal", async (req, res) => {
   try{
-    var dat = await Functions.getAll(AnimalModel);
+    var dat = await animal.GetAllAnimal();
     res.status(200).json(dat);
   }catch(error) {
     res.status(400).json({ message: error.message })
@@ -195,7 +207,7 @@ router.get("/getAllAnimal", async (req, res) => {
 router.get("/getOneAnimal/:id", async (req, res) => {
   try{
     var id = req.params.id;
-    var response = await Functions.getOne(id, AnimalModel);
+    var response = await animal.OneAnimal(id);
     res.status(200).json(response);
   }catch(error) {
     res.status(400).json({ message: error.message});
@@ -239,7 +251,7 @@ router.post("/postAdocao", async (req, res) => {
 
 router.get("/getAllAdocao", async (req, res) => {
   try{
-    var dat = await Functions.getAll(AdocaoModel);
+    var dat = await adocao.GetAllAdocaoONG();
     res.status(200).json(dat);
   }catch(error) {
     res.status(400).json({ message: error.message })

@@ -50,7 +50,8 @@ var ong = mongoose.model("ong",OngSchema);
 var PedidoAdocaoSchema = new mongoose.Schema({
   idPessoa: {required: true, type: ObjectId },
   dataPedido: {required: true, type: Date},
-  idONG: {required: true, type: ObjectId }
+  idONG: {required: true, type: ObjectId },
+  temp: {type: String} //para guardar o idAnimal para quando for chamar no pedidoAdocao, tornar mais facil encontrar o animal que o cliente deseja.
 });
 
 var PedidoAdocao = mongoose.model("pedidoAdocao", PedidoAdocaoSchema);
@@ -61,7 +62,7 @@ var PedidoAdocao = mongoose.model("pedidoAdocao", PedidoAdocaoSchema);
 
 var AnimalSchema = new mongoose.Schema({
   dataNascimento: {type: Date},
-  idONG: {required: true, type: String},
+  idONG: {required: true, type: ObjectId},
   tipoRaca: {required: true, type: String},
   racaCachorro: {type: String},
   racaGato: {type: String},
