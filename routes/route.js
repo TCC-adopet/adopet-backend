@@ -214,6 +214,16 @@ router.get("/getOneAnimal/:id", async (req, res) => {
   }
 });
 
+router.get("/getAnimalONG/:id", async (req, res) => {
+  try{
+    var id = req.params.id;
+    var response = await animal.GetAnimalONG(id);
+    res.status(200).json(response);
+  }catch(error) {
+    res.status(400).json({ message: error.message});
+  }
+});
+
 router.put("/updateAnimal/:id", async (req, res) => {
   var id = req.params.id;
   var updatedData = req.body;
@@ -249,9 +259,20 @@ router.post("/postAdocao", async (req, res) => {
   }
 });
 
-router.get("/getAllAdocao", async (req, res) => {
+router.get("/getAllAdocaoONG/:id", async (req, res) => {
+  var id = req.params.id;
   try{
-    var dat = await adocao.GetAllAdocaoONG();
+    var dat = await adocao.GetAllAdocaoONG(id);
+    res.status(200).json(dat);
+  }catch(error) {
+    res.status(400).json({ message: error.message })
+  }
+});
+
+router.get("/getAllAdocaoPessoa/:id", async (req, res) => {
+  var id = req.params.id;
+  try{
+    var dat = await adocao.GetAllAdocaoPessoa(id);
     res.status(200).json(dat);
   }catch(error) {
     res.status(400).json({ message: error.message })
