@@ -19,6 +19,17 @@ async function PedidosAdocaoONG(id) {
         //junta as informações do documento da ONG no documento do Pedido de Adoção
       },
       {
+        $unwind: "$ongInfo"
+      },
+      {
+        $project: {
+          mergedDocument: { $mergeObjects: ["$$ROOT", "$ongInfo"]}
+        }
+      },
+      {
+        $replaceRoot: {newRoot: "$mergedDocument"}
+      },
+      {
         $lookup: {
           from: 'pessoas',
           localField: 'idPessoa',
@@ -28,11 +39,24 @@ async function PedidosAdocaoONG(id) {
         //junta as informações do documento da Pessoa no documento do pedido
       },
       {
+        $unwind: "$pessoaInfo"
+      },
+      {
+        $project: {
+          mergedDocument: { $mergeObjects: ["$$ROOT", "$pessoaInfo"]}
+        }
+      },
+      {
+        $replaceRoot: {newRoot: "$mergedDocument"}
+      },
+      {
         $project: {
           _id: 1,
-          ongNome: { $arrayElemAt: ['$ongInfo.nomeEstabelecimento', 0] },
           dataPedido: 1,
-          pessoaNome: { $arrayElemAt: ['$pessoaInfo.nome', 0] }
+          nomeEstabelecimento: 1,
+          nomeDiretor: 1,
+          nome: 1,
+          sobreNome: 1
         }
       }
     ]).exec();
@@ -55,6 +79,17 @@ async function PedidosAdocaoONG(id) {
           //junta as informações do documento da ONG no documento do Pedido de Adoção
         },
         {
+          $unwind: "$ongInfo"
+        },
+        {
+          $project: {
+            mergedDocument: { $mergeObjects: ["$$ROOT", "$ongInfo"]}
+          }
+        },
+        {
+          $replaceRoot: {newRoot: "$mergedDocument"}
+        },
+        {
           $lookup: {
             from: 'pessoas',
             localField: 'idPessoa',
@@ -64,11 +99,24 @@ async function PedidosAdocaoONG(id) {
           //junta as informações do documento da Pessoa no documento do pedido
         },
         {
+          $unwind: "$pessoaInfo"
+        },
+        {
+          $project: {
+            mergedDocument: { $mergeObjects: ["$$ROOT", "$pessoaInfo"]}
+          }
+        },
+        {
+          $replaceRoot: {newRoot: "$mergedDocument"}
+        },
+        {
           $project: {
             _id: 1,
-            ongNome: { $arrayElemAt: ['$ongInfo.nomeEstabelecimento', 0] },
             dataPedido: 1,
-            pessoaNome: { $arrayElemAt: ['$pessoaInfo.nome', 0] }
+            nomeEstabelecimento: 1,
+            nomeDiretor: 1,
+            nome: 1,
+            sobreNome: 1
           }
         }
       ]).exec();
