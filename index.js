@@ -5,11 +5,12 @@ var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 var cors = require('cors');
 var cookieParser = require('cookie-parser');
+var uploadPerfil = require('./middleware/perfil');
+var uploadFotos = require('./middleware/fotos');
 
 var routes = require("./routes/route");
 
 var token = require("./functions/token");
-const { receber } = require("./aggregation/pedidoAdocao");
 
 var mongoString = process.env.DATABASE_URL;
 var port = process.env.PORT || 3000;
@@ -43,13 +44,17 @@ app.post('/api/logar', async(req,res) => {
   res.send(await token.logar(res,req.body));
 });
 
-app.get('/api/', async(req,res)=>{
-  res.send(await receber);
-})
-
 app.get('/api/deslogar', async(req,res) => {
   res.send(await token.deslogar(res));
 });
+
+app.post('/uploadPerfil/:id', uploadPerfil.single('foto'), (req, res) => {
+  res.json('Upload realizado!');
+});
+
+app.post('/uploadFoto/:id', uploadFotos.single('foto'), (req, res) => {
+  res.json('Upload realizado!');
+})
 
 app.listen(port, () => {
   console.log(`servidor iniciado na porta: ${port}`);
