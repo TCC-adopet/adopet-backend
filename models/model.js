@@ -71,8 +71,8 @@ var AnimalSchema = new mongoose.Schema({
   sexo: {required: true, type: String},
   vacinaGato: {type: String},
   vacinaCachorro: {type: String},
-  animalCastrado: {type:String},
-  animalAdotado: {type: String},
+  animalCastrado: {type:Boolean},
+  animalAdotado: {type: Boolean},
   descricaoAnimal: {type: String},
   dataUltimaVacina: {type: Date}
 });
