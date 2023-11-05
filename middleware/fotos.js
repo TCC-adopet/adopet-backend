@@ -11,7 +11,7 @@ module.exports = (multer ({
         if (!clientId) {
         return cb(new Error('O ID do cliente não foi fornecido.'));
         }
-        var extensao = file.originalname.split('.')[1];
+        var extensao = 'png';
         
         var baseName = `${clientId}-foto`;
         var newName = `${baseName}.${extensao}`;
