@@ -48,11 +48,11 @@ app.get('/api/deslogar', async(req,res) => {
   res.send(await token.deslogar(res));
 });
 
-app.post('/uploadPerfil/:id', uploadPerfil.single('foto'), (req, res) => {
+app.post('/uploadPerfil/:id', uploadPerfil.uploadFotoPerfil.single('foto'), (req, res) => {
   res.json('Upload realizado!');
 });
 
-app.post('/uploadFoto/:id', uploadFotos.single('foto'), (req, res) => {
+app.post('/uploadFoto/:id', uploadFotos.uploadFoto.single('foto'), (req, res) => {
   res.json('Upload realizado!');
 })
 
