@@ -1,7 +1,7 @@
 var multer = require('multer');
 const fs = require('fs');
 
-var uploadFoto = (id) => {
+var uploadFoto = () => {
     return multer({
         storage: multer.diskStorage({
             destination: function (req, file, cb) {

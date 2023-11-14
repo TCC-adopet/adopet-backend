@@ -1,6 +1,6 @@
 var multer = require('multer');
 
-var uploadFotoPerfil = (id) => {
+var uploadFotoPerfil = () => {
     return multer({
         storage: multer.diskStorage({
             destination: function (req, file, cb) {
