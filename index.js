@@ -5,8 +5,6 @@ var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 var cors = require('cors');
 var cookieParser = require('cookie-parser');
-var uploadPerfil = require('./middleware/perfil');
-var uploadFotos = require('./middleware/fotos');
 
 var routes = require("./routes/route");
 
@@ -47,14 +45,6 @@ app.post('/api/logar', async(req,res) => {
 app.get('/api/deslogar', async(req,res) => {
   res.send(await token.deslogar(res));
 });
-
-app.post('/uploadPerfil/:id', uploadPerfil.uploadFotoPerfil.single('foto'), (req, res) => {
-  res.json('Upload realizado!');
-});
-
-app.post('/uploadFoto/:id', uploadFotos.uploadFoto.single('foto'), (req, res) => {
-  res.json('Upload realizado!');
-})
 
 app.listen(port, () => {
   console.log(`servidor iniciado na porta: ${port}`);
